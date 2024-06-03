@@ -1,13 +1,13 @@
 return {
     {
-        "hrsh7th/cmp-nvim-lsp"
+        "hrsh7th/cmp-nvim-lsp",
     },
     {
-        'L3MON4D3/LuaSnip',
+        "L3MON4D3/LuaSnip",
         dependencies = {
-            'saadparwaiz1/cmp_luasnip',
-            "rafamadriz/friendly-snippets"        
-        }
+            "saadparwaiz1/cmp_luasnip",
+            "rafamadriz/friendly-snippets",
+        },
     },
     {
         "hrsh7th/nvim-cmp",
@@ -17,10 +17,10 @@ return {
 
             cmp.setup({
 
-                -- Tells nvim-cmp to use luasnip as the snippet expansion function 
+                -- Tells nvim-cmp to use luasnip as the snippet expansion function
                 snippet = {
                     expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
 
@@ -32,16 +32,16 @@ return {
 
                 -- Bindings for moving through completions
                 mapping = cmp.mapping.preset.insert({
-                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-j>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-k>"] = cmp.mapping.scroll_docs(4),
+                    ["<C-enter>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
 
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
-                    { name = 'luasnip' },
+                    { name = "luasnip" },
                 }, {
                     { name = "buffer" },
                 }),
@@ -65,6 +65,6 @@ return {
                 }),
                 matching = { disallow_symbol_nonprefix_matching = false },
             })
-        end
-    }
+        end,
+    },
 }
