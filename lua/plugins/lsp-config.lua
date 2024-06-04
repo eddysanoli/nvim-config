@@ -1,30 +1,32 @@
 return {
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup()
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-	},
-	{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
-		config = function()
-			local lsp_zero = require("lsp-zero")
-			lsp_zero.on_attach(function(client, bufnr)
-				lsp_zero.default_keymaps({ buffer = bufnr })
-			end)
+    {
+        "williamboman/mason.nvim",
+        config = function()
+            require("mason").setup()
+        end,
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup()
+        end,
+    },
+    {
+        "neovim/nvim-lspconfig",
+    },
+    {
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v3.x",
+        config = function()
+            local lsp_zero = require("lsp-zero")
+            lsp_zero.extend_lspconfig()
 
-            require('mason').setup({})
-            require('mason-lspconfig').setup({
+            lsp_zero.on_attach(function(client, bufnr)
+                lsp_zero.default_keymaps({ buffer = bufnr })
+            end)
+
+            require("mason").setup({})
+            require("mason-lspconfig").setup({
                 ensure_installed = {
                     "bashls",
                     "cssls",
@@ -41,9 +43,9 @@ return {
                 handlers = {
                     function(server_name)
                         require("lspconfig")[server_name].setup({})
-                    end
-                }
+                    end,
+                },
             })
-		end,
-	},
+        end,
+    },
 }

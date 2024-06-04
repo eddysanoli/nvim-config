@@ -1,5 +1,6 @@
 {
   "alpha-nvim": { "branch": "main", "commit": "41283fb402713fc8b327e60907f74e46166f4cfd" },
+  "auto-session": { "branch": "main", "commit": "af2219b9fa99c1d7ac409bd9eac094c459d3f52d" },
   "catppuccin": { "branch": "main", "commit": "5215ea59df6d0a7e27da9a5cd1165e06d1b04cbe" },
   "copilot.vim": { "branch": "release", "commit": "53d3091be388ff1edacdb84421ccfa19a446a84d" },
   "gitsigns.nvim": { "branch": "main", "commit": "75dc649106827183547d3bedd4602442340d2f7f" },
