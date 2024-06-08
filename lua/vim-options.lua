@@ -1,5 +1,7 @@
 vim.o.readonly = false
 vim.opt.smartindent = true
+
+-- Enable true color support. Needed for bufferline
 vim.opt.termguicolors = true
 
 -- Faster updates
@@ -47,3 +49,10 @@ vim.g.python3_host_prog = 'C:\\Users\\eddys\\.pyenv\\pyenv-win\\versions\\3.10.5
 -- Spell checking
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }
+
+-- Setup for scope.lua session support
+vim.opt.sessionoptions = {
+    "buffers",
+    "tabpages",
+    "globals",
+}

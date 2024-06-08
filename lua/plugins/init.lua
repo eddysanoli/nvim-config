@@ -4,4 +4,5 @@ return {
 	"tpope/vim-surround", -- Surround text with brackets, quotes, etc.
 	"easymotion/vim-easymotion", -- Show visible landmarks for easier navigation
 	"alefpereira/pyenv-pyright", -- Help Python work with pyenv
+    "cohama/lexima.vim", -- Auto close brackets, quotes, etc.
 }

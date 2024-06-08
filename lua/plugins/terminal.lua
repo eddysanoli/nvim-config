@@ -21,7 +21,7 @@ return {
 			-- Run the command: :Telescope toggleterm_manager
 			vim.api.nvim_set_keymap(
 				"n",
-				"<leader>ttm",
+				"<leader>tm",
 				"<cmd>Telescope toggleterm_manager<CR>",
 				{ noremap = true, silent = true }
 			)
@@ -53,13 +53,13 @@ return {
 
 			function _G.set_terminal_keymaps()
 				local opts = { buffer = 0 }
-				vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
-				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-				vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-				vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-				vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
+				vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts, { desc = "Exit terminal mode" })
+				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts, { desc = "Exit terminal mode" })
+				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts, { desc = "Move to the left window" })
+				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts, { desc = "Move to the bottom window" })
+				vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts, { desc = "Move to the top window" })
+				vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts, { desc = "Move to the right window" })
+				vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts, { desc = "Exit terminal mode and move to the next window" })
 			end
 
 			vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
@@ -95,30 +95,32 @@ return {
 			function _LAZYGIT_TOGGLE()
 				lazygit:toggle()
 			end
+
 			vim.api.nvim_set_keymap(
 				"n",
 				"<leader>lg",
 				"<cmd>lua _LAZYGIT_TOGGLE()<CR>",
-				{ noremap = true, silent = true }
+				{ noremap = true, silent = true, desc = "Open LazyGit in a floating terminal" }
 			)
 
-            -- Open Powershell in a floating terminal
-            local powershell = Terminal:new({
-                cmd = "pwsh",
-                direction = "float",
-                float_opts = {
-                    border = "double",
-                },
-            })
-            function _POWERSHELL_TOGGLE()
-                powershell:toggle()
-            end
-            vim.api.nvim_set_keymap(
-                "n",
-                "<leader>pwsh",
-                "<cmd>lua _POWERSHELL_TOGGLE()<CR>",
-                { noremap = true, silent = true }
-            )
+			-- Open Powershell in a floating terminal
+			local powershell = Terminal:new({
+				cmd = "pwsh",
+				direction = "float",
+				float_opts = {
+					border = "double",
+				},
+			})
+			function _POWERSHELL_TOGGLE()
+				powershell:toggle()
+			end
+
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>pwsh",
+				"<cmd>lua _POWERSHELL_TOGGLE()<CR>",
+				{ noremap = true, silent = true, desc = "Open Powershell in a floating terminal" }
+			)
 		end,
 	},
 }
