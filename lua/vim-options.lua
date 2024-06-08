@@ -44,3 +44,6 @@ vim.opt.isfname:append("@-@")
 vim.g.python_host_prog = 'C:\\Users\\eddys\\.pyenv\\pyenv-win\\versions\\3.10.5\\python3.exe'
 vim.g.python3_host_prog = 'C:\\Users\\eddys\\.pyenv\\pyenv-win\\versions\\3.10.5\\python3.exe'
 
+-- Spell checking
+vim.opt.spell = true
+vim.opt.spelllang = { "en_us" }

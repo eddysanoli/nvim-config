@@ -15,10 +15,13 @@ The configuration runs on top of Lazy and has LSP Zero for language server suppo
 ## Keybindings
 
 - `<leader>` is set to space
-- `gd` to go to definition
 
 LSP
 - `:Mason` to open the mason menu
+- `gd` to go to definition
+- `gr` to find references
+- `gi` to go to implementation
+- `K` to see documentation
 
 Completions
 - `<C-j>` and `<C-k>` to navigate through completion items
@@ -38,14 +41,23 @@ Neotree
 - `<C-b>` to toggle the file tree
 
 Null-LS
-- `<leader>gf` to format code using Null-LS
+- `<leader>fm` to format code using Null-LS
+
+Python VEnv
+- `<leader>vs` to select a virtual environment
 
 Sessions 
 - `<leader>ls` to see a list of all sessions
 
 Telescope
-- `<leader>fg` to look for text in files
+- `<leader>st` to search (s) for text (t) in files
 - `<C-p>` to find files
 
 Undotree
-- `<leader>u` to toggle the undo tree
+- `<leader>ut` to toggle the undo tree
+
+Harpoon
+- `<leader>hl` to toggle the harpoon list
+- `<leader>ha` to add a file to the harpoon list
+- `<leader>hn` to move to the next file in the harpoon list
+- `<leader>hp` to move to the previous file in the harpoon list
