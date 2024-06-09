@@ -8,7 +8,7 @@ return {
     },
     config = function()
         require("neo-tree").setup({
-            use_libuv_file_watcher = false,
+            use_libuv_file_watcher = true,
             source_selector = {
                 winbar = true,
                 statusline = true,

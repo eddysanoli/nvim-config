@@ -34,7 +34,7 @@ vim.wo.wrap = false
 vim.wo.number = true
 vim.wo.relativenumber = true
 
--- Make the clipboard the recepient of all yanked data
+-- Make the clipboard the recipient of all yanked data
 vim.o.clipboard = "unnamedplus"
 
 -- When I scroll down I want to see at least 8 lines at the bottom
@@ -48,6 +48,7 @@ vim.g.python3_host_prog = 'C:\\Users\\eddys\\.pyenv\\pyenv-win\\versions\\3.10.5
 
 -- Spell checking
 vim.opt.spell = true
+vim.opt_local.spell = true
 vim.opt.spelllang = { "en_us" }
 
 -- Setup for scope.lua session support
@@ -56,3 +57,8 @@ vim.opt.sessionoptions = {
     "tabpages",
     "globals",
 }
+
+-- Disable spell checking for terminal buffers
+vim.cmd [[
+    autocmd TermOpen * setlocal nospell
+]]
