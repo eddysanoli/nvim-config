@@ -29,6 +29,7 @@
   "none-ls-extras.nvim": { "branch": "main", "commit": "336e84b9e43c0effb735b08798ffac382920053b" },
   "none-ls.nvim": { "branch": "main", "commit": "8691504118b252d64fc5023a104aedd100ab754a" },
   "nui.nvim": { "branch": "main", "commit": "b1b3dcd6ed8f355c78bad3d395ff645be5f8b6ae" },
+  "nvcheatsheet.nvim": { "branch": "master", "commit": "618850d2a14ac82f8d9bc560cce923d728e7424a" },
   "nvim-cmp": { "branch": "main", "commit": "5260e5e8ecadaf13e6b82cf867a909f54e15fd07" },
   "nvim-dap": { "branch": "master", "commit": "6f79b822997f2e8a789c6034e147d42bc6706770" },
   "nvim-dap-python": { "branch": "master", "commit": "ae0225d0d4a46e18e6057ab3701ef87bbbd6aaad" },
