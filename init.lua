@@ -23,5 +23,9 @@ require("keymaps")
 -- ENABLE LAZY
 -- =============================
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+    ui = {
+        border = "rounded"
+    }
+})
 

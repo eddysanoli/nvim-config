@@ -2,7 +2,11 @@ return {
 	{
 		"williamboman/mason.nvim",
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+                ui = {
+                    border = "rounded",
+                }
+            })
 		end,
 	},
 	{
@@ -21,7 +25,7 @@ return {
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.extend_lspconfig()
 
-			lsp_zero.on_attach(function(client, bufnr)
+			lsp_zero.on_attach(function(_, bufnr)
 				lsp_zero.default_keymaps({ buffer = bufnr })
 			end)
 
@@ -53,6 +57,8 @@ return {
 			vim.keymap.set("n", "<leader>ca", function()
 				vim.lsp.buf.code_action()
 			end, { desc = "Show code actions" })
+
+			local bufnr = vim.fn.bufnr("%")
 			vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { buffer = bufnr, desc = "Show references" })
 		end,
 	},

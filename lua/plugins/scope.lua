@@ -6,7 +6,7 @@ return {
 
         vim.keymap.set(
             "n",
-            "<leader>sbl",
+            "<leader>bl",
             "<cmd>Telescope scope buffers<cr>",
             { silent = true, desc = "Search buffers" }
         )
