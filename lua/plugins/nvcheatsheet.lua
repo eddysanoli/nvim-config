@@ -21,6 +21,12 @@ return {
                 ["General"] = {
                     { "Exit out of normal mode", "jk" },
                 },
+                ["Folds"] = {
+                    { "Toggle fold",          "za" },
+                    { "Close all folds",      "zM" },
+                    { "Open all folds",       "zR" },
+                    { "Peek at folded lines", "zK" },
+                },
                 ["Spelling"] = {
                     { "See spelling suggestions",                     "z=" },
                     { "Add word under cursor as good word",           "zg" },
@@ -99,7 +105,7 @@ return {
                     { "Open powershell in floating window", "<leader>pwsh" },
                     { "Open new terminal",                  "<C-\\>" },
                     { "Open X terminal",                    "X<C-\\>" },
-                    { "hellow worlds",                       "dude" },
+                    { "hellow worlds",                      "dude" },
                 },
                 ["Trouble"] = {
                     { "Toggle trouble diagnostics",        "<leader>td" },

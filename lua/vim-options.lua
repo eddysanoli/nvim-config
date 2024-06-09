@@ -62,3 +62,10 @@ vim.opt.sessionoptions = {
 vim.cmd [[
     autocmd TermOpen * setlocal nospell
 ]]
+
+-- Folds
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
