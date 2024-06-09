@@ -1,0 +1,3 @@
+return {
+	"alefpereira/pyenv-pyright",
+}
