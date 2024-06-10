@@ -21,6 +21,10 @@ return {
                 ["General"] = {
                     { "Exit out of normal mode", "jk" },
                 },
+                ["Copilot"] = {
+                    { "Open Copilot chat", "<leader>cc" },
+                    { "Close Copilot chat", "<leader>cx" },
+                },
                 ["Folds"] = {
                     { "Toggle fold",          "za" },
                     { "Close all folds",      "zM" },
@@ -28,11 +32,11 @@ return {
                     { "Peek at folded lines", "zK" },
                 },
                 ["Spelling"] = {
-                    { "See spelling suggestions",                     "z=" },
-                    { "Add word under cursor as good word",           "zg" },
-                    { "Add word under cursor as bad word",            "zw" },
-                    { "Remove word under cursor from good word list", "zug" },
-                    { "Remove word under cursor from bad word list",  "zuw" },
+                    { "See spelling suggestions",                     "<leader>zl" },
+                    { "Add word under cursor as good word",           "<leader>zg" },
+                    { "Add word under cursor as bad word",            "<leader>zw" },
+                    { "Remove word under cursor from good word list", "<leader>zug" },
+                    { "Remove word under cursor from bad word list",  "<leader>zuw" },
                 },
                 ["Bufferline"] = {
                     { "Move to next buffer",     "<leader>gt" },
@@ -105,7 +109,6 @@ return {
                     { "Open powershell in floating window", "<leader>pwsh" },
                     { "Open new terminal",                  "<C-\\>" },
                     { "Open X terminal",                    "X<C-\\>" },
-                    { "hellow worlds",                      "dude" },
                 },
                 ["Trouble"] = {
                     { "Toggle trouble diagnostics",        "<leader>td" },
@@ -120,6 +123,10 @@ return {
                 },
                 ["Virtual Env Selector"] = {
                     { "Open virtual environment selector", "<leader>vs" },
+                },
+                ["Which-key"] = {
+                    { "List marks",     "'" },
+                    { "List registers", '"' },
                 },
             },
         })

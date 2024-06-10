@@ -47,8 +47,8 @@ vim.g.python_host_prog = 'C:\\Users\\eddys\\.pyenv\\pyenv-win\\versions\\3.10.5\
 vim.g.python3_host_prog = 'C:\\Users\\eddys\\.pyenv\\pyenv-win\\versions\\3.10.5\\python3.exe'
 
 -- Spell checking
-vim.opt.spell = true
-vim.opt_local.spell = true
+vim.opt.spell = false
+vim.opt_local.spell = false
 vim.opt.spelllang = { "en_us" }
 
 -- Setup for scope.lua session support
