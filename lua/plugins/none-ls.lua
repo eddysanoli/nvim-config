@@ -11,7 +11,7 @@ return {
                 null_ls.builtins.formatting.prettier,
                 null_ls.builtins.completion.spell,
                 require("none-ls.diagnostics.eslint_d"),
-                -- null_ls.builtins.completion.codespell, -- This line is commented out because it always returns an error. Don't re-add it
+                -- Don't re-add it codespell here. It fails. Please
             },
         })
 

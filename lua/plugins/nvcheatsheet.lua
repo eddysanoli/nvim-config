@@ -55,7 +55,7 @@ return {
                     { "Accept completion",          "<CR>" },
                 },
                 ["Comment"] = {
-                    { "Comment line toggle",                             "gc" },
+                    { "Comment line toggle",                             "<leader>gc" },
                     { "Comment block toggle",                            "gbc" },
                     { "Comment visual selection",                        "gc" },
                     { "Comment visual selection using block delimiters", "gb" },
