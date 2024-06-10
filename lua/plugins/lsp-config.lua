@@ -38,7 +38,6 @@ return {
 					"docker_compose_language_service",
 					"dotls",
 					"intelephense",
-					"pyright",
 					"html",
 					"jsonls",
 					"tsserver",
