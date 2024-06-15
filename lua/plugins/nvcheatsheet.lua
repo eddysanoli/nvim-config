@@ -65,6 +65,11 @@ return {
                     { "Add comment on the line below",                   "gco" },
                     { "Add comment at the end of line",                  "gcA" },
                 },
+                ["Leap"] = {
+                    { "Search for word in front of cursor", "s" },
+                    { "Search for word behind cursor",      "sb" },
+                    { "Search for word in window",          "gs" },
+                },
                 ["Debugging"] = {
                     { "Toggle breakpoint",          "<leader>dt" },
                     { "Continue debugging session", "<leader>dc" },

@@ -26,6 +26,9 @@ return {
             lsp_zero.extend_lspconfig()
             lsp_zero.on_attach(function(_, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr })
+                if vim.lsp.inlay_hint then
+                  vim.lsp.inlay_hint.enable(true, { 0 })
+                end
             end)
 
             require("mason").setup({})
@@ -39,6 +42,9 @@ return {
                     "tsserver",
                     "vimls",
 
+                    -- Rust
+                    "rust_analyzer",
+
                     -- Docker
                     "dockerls",
                     "docker_compose_language_service",
@@ -51,10 +57,25 @@ return {
                     -- Python
                     "ruff",
                     "pylsp",
+                    "basedpyright",
                 },
                 handlers = {
                     function(server_name)
                         local server = require("lspconfig")[server_name]
+                        if server_name == "rust_analyzer" then
+                            server.setup({
+                                settings = {
+                                    ["rust-analyzer"] = {
+                                        diagnostics = {
+                                            enable = true,
+                                            disabled = { "unresolved-imports" },
+                                        },
+                                    },
+                                },
+                            })
+                            return
+                        end
+
                         if server_name == "pylsp" then
                             server.setup({
                                 settings = {
@@ -63,13 +84,12 @@ return {
                                             ruff = {
                                                 enabled = true,
                                                 formatEnabled = true,
-                                                lineLength = 91,
                                             },
                                             pycodestyle = { enabled = false },
-                                            pyflakes = { enabled = false },
-                                            mccabe = { enabled = false },
-                                            autopep8 = { enabled = false },
-                                            yapf = { enabled = false },
+                                            -- pyflakes = { enabled = false },
+                                            -- mccabe = { enabled = false },
+                                            -- autopep8 = { enabled = false },
+                                            -- yapf = { enabled = false },
                                         },
                                     },
                                 },

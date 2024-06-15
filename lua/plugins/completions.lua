@@ -17,7 +17,7 @@ return {
             "KadoBOT/cmp-plugins",
             "prabirshrestha/vim-lsp",
             "dmitmel/cmp-vim-lsp",
-            "hrsh7th/cmp-path",
+            "FelipeLema/cmp-async-path",
             "hrsh7th/cmp-buffer",
         },
         requires = {
@@ -69,23 +69,13 @@ return {
                     { name = "luasnip" },
                     { name = "plugins" },
                     { name = "vim_lsp" },
-                    { name = "path" },
+                    { name = 'async_path' },
                     {
                         name = "lazydev",
                         group_index = 0, -- set group index to 0 to skip loading LuaLS completions
                     },
                 }, {
                     { name = "buffer" },
-                    {
-                        name = "spell",
-                        option = {
-                            keep_all_entries = false,
-                            enable_in_context = function()
-                                return true
-                            end,
-                            preselect_correct_word = true,
-                        },
-                    },
                     {
                         name = "omni",
                         option = {
