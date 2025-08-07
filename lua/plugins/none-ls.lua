@@ -13,7 +13,6 @@ return {
 				null_ls.builtins.diagnostics.mypy,
 				null_ls.builtins.formatting.djhtml,
 				null_ls.builtins.formatting.isort,
-				require("none-ls.diagnostics.eslint_d"),
 			},
 		})
 
