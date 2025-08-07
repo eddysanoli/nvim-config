@@ -5,7 +5,7 @@ return {
     keys = {
         {
             "<leader>td",
-            "<cmd>Trouble diagnostics toggle<cr>",
+            "<cmd>Trouble diagnostics toggle win.position=right<cr>",
             desc = "Diagnostics (Trouble)",
         },
         {

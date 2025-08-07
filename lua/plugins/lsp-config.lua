@@ -63,6 +63,19 @@ return {
 					function(server_name)
 						local server = require("lspconfig")[server_name]
 
+						if server_name == "solargraph" then
+							local util = require("lspconfig.util")
+							server.setup({
+								settings = {
+									Solargraph = {
+										root_dir = util.root_pattern("Gemfile", ".git")(fname)
+											or util.path.dirname(vim.api.nvim_buf_get_name(0)),
+									},
+								},
+							})
+							return
+						end
+
 						if server_name == "rust_analyzer" then
 							server.setup({
 								settings = {
@@ -81,7 +94,7 @@ return {
 								settings = {
 									basedpyright = {
 										disableTaggedHints = true,
-										typeCheckingMode = "basic",
+										typeCheckingMode = "strict",
 									},
 								},
 							})
