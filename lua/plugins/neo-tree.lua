@@ -26,6 +26,7 @@ return {
             },
         })
 
+        
         vim.keymap.set("n", "<C-b>", ":Neotree filesystem toggle left<CR>", { desc = "Open side file tree explorer" })
         vim.keymap.set(
             "n",

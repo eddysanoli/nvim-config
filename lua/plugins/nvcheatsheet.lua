@@ -133,9 +133,10 @@ return {
 					{ "List marks", "'" },
 					{ "List registers", '"' },
 				},
-				["Linting, Formatters, LSP, etc"] = {
+				["Other Packages"] = {
 					{ "Install LSPs, DAP servers, linters and formatters (Mason)", ":Mason" },
 					{ "Update supported languages (Treesitter)", ":TSUpdate" },
+                    { "Lazy package manager", ":Lazy" },
 				},
 			},
 		})

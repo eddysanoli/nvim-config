@@ -4,10 +4,10 @@ return {
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
-		branch = "canary",
+		build = "make tiktoken",
 		dependencies = {
 			{ "github/copilot.vim" },
-			{ "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log wrapper
 		},
 		config = function()
 			require("CopilotChat").setup({
