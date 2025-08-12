@@ -63,6 +63,17 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     update_in_insert = false,
 })
 
+-- Make lines wrap (visually, not including newlines) in Markdown files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.linebreak = true
+        vim.opt_local.textwidth = 0
+        vim.opt_local.colorcolumn = ""
+    end,
+})
+
 -- Setup for scope.lua session support
 vim.opt.sessionoptions = {
     "buffers",
