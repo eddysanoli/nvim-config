@@ -9,39 +9,11 @@ return {
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.extend_lspconfig()
 
-            -- Remove inlay hints. These are the little hint inferences that show up after 
-            -- a variable or function, but that are not part of the code
 			lsp_zero.on_attach(function(_, bufnr)
 				lsp_zero.default_keymaps({ buffer = bufnr })
 				if vim.lsp.inlay_hint then
 					vim.lsp.inlay_hint.enable(true, { 0 })
 				end
-
-                -- Set the onhover box to have a rounded border
-                vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-                    vim.lsp.handlers.hover,
-                    {
-                        border = "rounded",
-                        focusable = false,
-                        style = "minimal",
-                        relative = "cursor",
-                        width = 80,
-                        height = 20,
-                    }
-                )
-
-                -- Set the signature help box to have a rounded border
-                vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-                    vim.lsp.handlers.signature_help,
-                    {
-                        border = "rounded",
-                        focusable = false,
-                        style = "minimal",
-                        relative = "cursor",
-                        width = 80,
-                        height = 20,
-                    }
-                )
 			end)
 
 			require("mason").setup({
