@@ -30,18 +30,6 @@ return {
         vim.keymap.set("n", "<C-b>", ":Neotree filesystem toggle left<CR>", { desc = "Open side file tree explorer" })
         vim.keymap.set(
             "n",
-            "<leader>ftl",
-            ":Neotree filesystem toggle left<CR>",
-            { desc = "Open file tree explorer on the left" }
-        )
-        vim.keymap.set(
-            "n",
-            "<leader>ftr",
-            ":Neotree filesystem toggle left<CR>",
-            { desc = "Open file tree explorer on the right" }
-        )
-        vim.keymap.set(
-            "n",
             "<leader>gs",
             ":Neotree float git_status<CR>",
             { desc = "Open git status in a floating window" }

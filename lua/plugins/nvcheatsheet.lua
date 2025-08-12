@@ -47,7 +47,13 @@ return {
 					{ "Scroll preview up", "<C-u>" },
 					{ "Scroll preview down", "<C-d>" },
 					{ "Find file", "<C-p>" },
-					{ "Search for text in files", "<leader>st" },
+					{ "Find text in files", "<leader>ft" },
+					{ "Move through buffers", "<leader>fb" },
+                    { "Find symbols (variables, functions, etc)", "<leader>fs" },
+                    { "Go through previously opened files", "<leader>fo" },
+                    { "Find help tags", "<leader>fh" },
+                    { "Search for the currently selected word", "<leader>fw" },
+                    { "Search through clipboard", "<leader>fc" },
 				},
 				["Completions"] = {
 					{ "Select next completion", "<C-j>" },
@@ -97,14 +103,11 @@ return {
 				},
 				["Neotree"] = {
 					{ "Toggle left file tree", "<C-b>" },
-					{ "Toggle left file tree", "<leader>ftl" },
-					{ "Toggle right file tree", "<leader>ftr" },
+                    { "Create file", "a" },
+                    { "Delete file", "d" },
 				},
 				["None-LS"] = {
 					{ "Format file", "<leader>fm" },
-				},
-				["Scope"] = {
-					{ "Buffer list menu", "<leader>bl" },
 				},
 				["Sessions"] = {
 					{ "Session list menu", "<leader>ls" },
