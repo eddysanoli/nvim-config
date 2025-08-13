@@ -13,6 +13,7 @@ return {
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
 			vim.keymap.set("n", "<leader>ft", builtin.live_grep, { desc = "Search text in files" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+			vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", { desc = "Find notifications" })
 			vim.keymap.set(
 				"n",
 				"<leader>fs",

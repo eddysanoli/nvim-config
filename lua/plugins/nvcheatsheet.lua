@@ -54,6 +54,7 @@ return {
                     { "Find help tags", "<leader>fh" },
                     { "Search for the currently selected word", "<leader>fw" },
                     { "Search through clipboard", "<leader>fc" },
+                    { "See all shown notifications", "<leader>fn" },
 				},
 				["Completions"] = {
 					{ "Select next completion", "<C-j>" },
@@ -120,11 +121,11 @@ return {
 				},
 				["Trouble"] = {
 					{ "Toggle trouble diagnostics", "<leader>td" },
-					{ "Toggle trouble diagnostics filter", "<leader>tdf" },
+					{ "Toggle trouble diagnostics filter", "<leader>tb" },
 					{ "Toggle trouble symbols", "<leader>ts" },
-					{ "Toggle trouble LSP", "<leader>tlsp" },
-					{ "Toggle trouble loclist", "<leader>tloc" },
-					{ "Toggle trouble QF List", "<leader>tqf" },
+					{ "Toggle trouble LSP", "<leader>tt" },
+					{ "Toggle trouble loclist", "<leader>tl" },
+					{ "Toggle trouble QF List", "<leader>tq" },
 				},
 				["Undotree"] = {
 					{ "Open Undotree", "<leader>ut" },
