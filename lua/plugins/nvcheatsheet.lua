@@ -102,7 +102,7 @@ return {
 					{ "Check documentation", "K" },
 				},
 				["Neotree"] = {
-					{ "Toggle left file tree", "<C-b>" },
+					{ "Toggle file tree", "<C-b>" },
                     { "Create file", "a" },
                     { "Delete file", "d" },
 				},
@@ -128,9 +128,6 @@ return {
 				},
 				["Undotree"] = {
 					{ "Open Undotree", "<leader>ut" },
-				},
-				["Virtual Env Selector"] = {
-					{ "Open virtual environment selector", "<leader>vs" },
 				},
 				["Which-key"] = {
 					{ "List marks", "'" },
