@@ -1,7 +1,7 @@
 vim.o.readonly = false
 vim.opt.smartindent = true
 
--- Enable true color support. Needed for bufferline
+-- Enable 24bit color support. Needed for bufferline and notify
 vim.opt.termguicolors = true
 
 -- Faster updates
