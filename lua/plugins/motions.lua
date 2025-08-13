@@ -3,6 +3,7 @@ return {
 	"tpope/vim-surround", -- Surround text with brackets, quotes, etc.
 	"easymotion/vim-easymotion", -- Show visible landmarks for easier navigation
 	"tpope/vim-speeddating", -- Increment dates, times, and more using CTRL-A and CTRL-X
+    "cohama/lexima.vim", -- Auto close brackets, quotes, etc.
 	{
 		"ggandor/leap.nvim", -- Jump to a new location using two characters. Analog to the "f" motion
 		dependencies = {

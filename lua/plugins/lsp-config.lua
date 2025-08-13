@@ -11,9 +11,6 @@ return {
 
             lsp_zero.on_attach(function(_, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr })
-                if vim.lsp.inlay_hint then
-                    vim.lsp.inlay_hint.enable(true, { 0 })
-                end
             end)
 
             require("mason").setup({
@@ -82,6 +79,9 @@ return {
                                     },
                                 },
                             })
+                            if vim.lsp.inlay_hint then
+                                vim.lsp.inlay_hint.enable(false, { 0 })
+                            end
                             return
                         elseif server_name == "ruff" then
                             server.setup({
