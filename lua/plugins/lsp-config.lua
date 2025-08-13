@@ -5,7 +5,11 @@ return {
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
+        dependencies = {
+            'saghen/blink.cmp',
+        },
         config = function()
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
             local lsp_zero = require("lsp-zero")
             lsp_zero.extend_lspconfig()
 
@@ -50,6 +54,7 @@ return {
                         if server_name == "solargraph" then
                             local util = require("lspconfig.util")
                             server.setup({
+                                capabilities = capabilities,
                                 settings = {
                                     Solargraph = {
                                         root_dir = util.root_pattern("Gemfile", ".git")(fname)
@@ -60,6 +65,7 @@ return {
                             return
                         elseif server_name == "rust_analyzer" then
                             server.setup({
+                                capabilities = capabilities,
                                 settings = {
                                     ["rust-analyzer"] = {
                                         diagnostics = {
@@ -72,6 +78,7 @@ return {
                             return
                         elseif server_name == "basedpyright" then
                             server.setup({
+                                capabilities = capabilities,
                                 settings = {
                                     basedpyright = {
                                         disableTaggedHints = true,
@@ -85,6 +92,7 @@ return {
                             return
                         elseif server_name == "ruff" then
                             server.setup({
+                                capabilities = capabilities,
                                 settings = {
                                     ruff = {
                                         enable = true,
@@ -95,7 +103,9 @@ return {
                             })
                             return
                         else
-                            server.setup({})
+                            server.setup({
+                                capabilities = capabilities,
+                            })
                         end
                     end,
                 },

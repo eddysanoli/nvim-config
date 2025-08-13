@@ -1,89 +1,74 @@
 return {
-    {
-        "hrsh7th/cmp-nvim-lsp",
-    },
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = {
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
-        },
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "f3fora/cmp-spell",
-            "hrsh7th/cmp-omni",
-            "KadoBOT/cmp-plugins",
-            "prabirshrestha/vim-lsp",
-            "dmitmel/cmp-vim-lsp",
-            "FelipeLema/cmp-async-path",
-            "hrsh7th/cmp-buffer",
-        },
-        requires = {
-            {
-                "KadoBOT/cmp-plugins",
-                config = function()
-                    require("cmp-plugins").setup({
-                        files = { ".*\\.lua" }, -- default
-                    })
-                end,
-            },
-        },
-        config = function()
-            local cmp = require("cmp")
-            require("luasnip.loaders.from_vscode").lazy_load()
+	{
+		"saghen/blink.cmp",
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+			"bydlw98/blink-cmp-env",
+			"jdrupal-dev/css-vars.nvim",
+		},
+		version = "1.*",
+		opts = {
+			-- All presets have the following mappings:
+			-- C-space: Open menu or open docs if already open
+			-- C-n/C-p or Up/Down: Select next/previous item
+			-- C-e: Hide menu
+			-- C-k: Toggle signature help (if signature.enabled = true)
+			--
+			-- See :h blink-cmp-config-keymap for defining your own keymap
+			keymap = {
+				preset = "default",
+				["<C-k>"] = { "select_prev", "fallback_to_mappings" },
+				["<C-j>"] = { "select_next", "fallback_to_mappings" },
+			},
 
-            cmp.setup({
+			appearance = {
+				nerd_font_variant = "mono",
+			},
 
-                -- Tells nvim-cmp to use luasnip as the snippet expansion function
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
+			-- (Default) Only show the documentation popup when manually triggered
+			completion = { documentation = { auto_show = false } },
 
-                -- How the completion window looks
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
+			sources = {
+				default = {
+					"lsp",
+					"path",
+					"snippets",
+					"buffer",
+					"env",
+                    "lazydev",
+				},
+				providers = {
+					env = {
+						name = "Env",
+						module = "blink-cmp-env",
+						--- @type blink-cmp-env.Options
+						opts = {
+							show_braces = false,
+							show_documentation_window = true,
+						},
+					},
+					css_vars = {
+						name = "css-vars",
+						module = "css-vars.blink",
+						opts = {
+							search_extensions = { ".js", ".ts", ".jsx", ".tsx" },
+						},
+					},
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
+					},
+				},
+			},
 
-                -- Bindings for moving through completions
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-k>"] = cmp.mapping.select_prev_item(),
-                    ["<C-j>"] = cmp.mapping.select_next_item(),
-                    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-2), { "i", "c" }),
-                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(2), { "i", "c" }),
-                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-                    ["<C-y>"] = cmp.config.disable,
-                    ["<C-e>"] = cmp.mapping({
-                        i = cmp.mapping.abort(),
-                        c = cmp.mapping.close(),
-                    }),
-                    ["<CR>"] = cmp.mapping.confirm(),
-                }),
-
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                    { name = "plugins" },
-                    { name = "vim_lsp" },
-                    { name = 'async_path' },
-                    {
-                        name = "lazydev",
-                        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-                    },
-                }, {
-                    { name = "buffer" },
-                    {
-                        name = "omni",
-                        option = {
-                            disable_omnifuncs = { "v:lua.vim.lsp.omnifunc" },
-                        },
-                    },
-                }),
-            })
-        end,
-    },
+			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+			-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+			--
+			-- See the fuzzy documentation for more information
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
+	},
 }

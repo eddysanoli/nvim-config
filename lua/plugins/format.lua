@@ -4,7 +4,7 @@ return {
         config = function()
             require("trim").setup({
                 trim_on_write = false,
-                highlight = true,
+                highlight = false,
             })
         end,
     },
