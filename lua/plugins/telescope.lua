@@ -26,7 +26,7 @@ return {
 
 			require("telescope").setup({
 				defaults = {
-					path_display = { "truncate" }, -- Truncate file paths in results
+					path_display = { "filename_first" }, -- Show filename first in results, preceding the path
 					mappings = {
 						i = {
 							["<C-j>"] = actions.cycle_history_next, -- Cycle through history in insert mode
