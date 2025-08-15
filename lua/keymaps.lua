@@ -3,6 +3,7 @@
 -- =============================
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', {noremap = true})
+vim.api.nvim_set_keymap('i', 'JK', '<Esc>', {noremap = true})
 
 -- =============================
 -- INDENT AND DE-INDENT
