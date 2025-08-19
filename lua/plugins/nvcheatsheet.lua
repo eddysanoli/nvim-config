@@ -47,6 +47,7 @@ return {
 					{ "Scroll preview up", "<C-u>" },
 					{ "Scroll preview down", "<C-d>" },
 					{ "Find file", "<C-p>" },
+					{ "Search text in files (Live grep)", "<leader>fg" },
 					{ "Find text in files", "<leader>ft" },
 					{ "Move through buffers", "<leader>fb" },
                     { "Find symbols (variables, functions, etc)", "<leader>fs" },
