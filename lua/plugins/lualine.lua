@@ -1,10 +1,19 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = {
+		"nvim-tree/nvim-web-devicons",
+	},
 	config = function()
 		require("lualine").setup({
 			disabled_filetypes = { "neo-tree" },
 			options = { theme = "dracula" },
+			sections = {
+				lualine_b = {
+					"diff",
+					"diagnostics",
+					"grapple",
+				},
+			},
 			extensions = {
 				"fugitive",
 				"neo-tree",
@@ -19,16 +28,6 @@ return {
 							function()
 								return "Cheatsheet"
 							end,
-						},
-						lualine_b = {
-							{
-								function()
-									return require("grapple").name_or_index()
-								end,
-								cond = function()
-									return package.loaded["grapple"] and require("grapple").exists()
-								end,
-							},
 						},
 					},
 					filetypes = { "nvcheatsheet" },
