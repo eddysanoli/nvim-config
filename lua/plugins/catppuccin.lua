@@ -11,6 +11,11 @@ return {
 				neotree = true,
 				lsp_trouble = true,
 				which_key = true,
+				blink_cmp = {
+					style = "bordered",
+				},
+                leap= true,
+                copilot_vim = true,
 			},
 
 			-- Custom highlights for nvcheatsheet
