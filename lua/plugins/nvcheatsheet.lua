@@ -87,15 +87,17 @@ return {
 					{ "Open git status window (neotree)", "<leader>gs" },
 					{ "Open lazy git", "<leader>lg" },
 				},
-				["Harpoon"] = {
-					{ "Add to harpoon list", "<leader>ha" },
-					{ "Open harpoon list", "<leader>hl" },
-					{ "Go to harpoon 1", "<leader>h1" },
-					{ "Go to harpoon 2", "<leader>h2" },
-					{ "Go to harpoon 3", "<leader>h3" },
-					{ "Go to harpoon 4", "<leader>h4" },
-					{ "Go to previous harpoon", "<leader>hp" },
-					{ "Go to next harpoon", "<leader>hp" },
+				["Grapple"] = {
+					{ "Add grapple tag", "<leader>ga" },
+					{ "Toggle tag list", "<leader>gl" },
+					{ "Go to first tag", "<leader>g1" },
+					{ "Go to second tag", "<leader>g2" },
+					{ "Go to third tag", "<leader>g3" },
+					{ "Go to fourth tag", "<leader>g4" },
+					{ "Go to previous tag", "<leader>gp" },
+					{ "Go to next tag", "<leader>gn" },
+					{ "Open scopes window", "<leader>gs" },
+                    { "Remove tag", "List tags. Delete a line" }
 				},
 				["LSP"] = {
 					{ "See code actions (lightbulb will show up on the left)", "<leader>ca" },

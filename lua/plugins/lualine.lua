@@ -8,7 +8,7 @@ return {
 			extensions = {
 				"fugitive",
 				"neo-tree",
-                "toggleterm",
+				"toggleterm",
 				"trouble",
 				"mason",
 				"lazy",
@@ -19,6 +19,16 @@ return {
 							function()
 								return "Cheatsheet"
 							end,
+						},
+						lualine_b = {
+							{
+								function()
+									return require("grapple").name_or_index()
+								end,
+								cond = function()
+									return package.loaded["grapple"] and require("grapple").exists()
+								end,
+							},
 						},
 					},
 					filetypes = { "nvcheatsheet" },
