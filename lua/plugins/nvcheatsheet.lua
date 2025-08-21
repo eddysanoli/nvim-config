@@ -137,9 +137,15 @@ return {
 					{ "List marks", "'" },
 					{ "List registers", '"' },
 				},
+				["Treesitter"] = {
+					{ "Update supported languages (Treesitter)", ":TSUpdate" },
+					{ "Start incremental selection", '<leader>ss' },
+					{ "Increment selection by node", '<leader>si' },
+					{ "Increment selection by scope", '<leader>sc' },
+					{ "Decrement selection by node", '<leader>sd' },
+				},
 				["Other Packages"] = {
 					{ "Install LSPs, DAP servers, linters and formatters (Mason)", ":Mason" },
-					{ "Update supported languages (Treesitter)", ":TSUpdate" },
                     { "Lazy package manager", ":Lazy" },
 				},
 			},
