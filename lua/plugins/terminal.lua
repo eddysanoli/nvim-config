@@ -64,7 +64,8 @@ return {
 
 			vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
-			-- Open LazyGit
+            -- ===================== LAZYGIT =====================
+
 			local Terminal = require("toggleterm.terminal").Terminal
 			local lazygit = Terminal:new({
 				cmd = "lazygit",
@@ -84,6 +85,13 @@ return {
 						"<cmd>close<CR>",
 						{ noremap = true, silent = true }
 					)
+                    vim.api.nvim_buf_set_keymap(
+                        term.bufnr,
+                        "t",
+                        "<Esc>",
+                        "<Esc>",
+                        { noremap = true, silent = true }
+                    )
 				end,
 
 				-- function to run on closing the terminal
@@ -102,6 +110,8 @@ return {
 				"<cmd>lua _LAZYGIT_TOGGLE()<CR>",
 				{ noremap = true, silent = true, desc = "Open LazyGit in a floating terminal" }
 			)
+
+            -- =================== POWERSHELL ================
 
 			-- Open Powershell in a floating terminal
 			local powershell = Terminal:new({

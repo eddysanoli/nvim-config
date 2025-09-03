@@ -8,7 +8,6 @@ return {
 	},
 	config = function()
 		require("neo-tree").setup({
-			use_libuv_file_watcher = true,
 			source_selector = {
 				winbar = true,
 				statusline = true,
@@ -16,12 +15,13 @@ return {
 			window = {
 				mappings = {
 					["P"] = { "toggle_preview", config = { use_float = false, use_image_nvim = true } },
+					["gT"] = "prev_source",
+					["gt"] = "next_source",
 				},
 			},
 
-			-- =================== AUTO CLOSE ================
+            -- Close Neo-tree when opening a file          
 			event_handlers = {
-
 				{
 					event = "file_open_requested",
 					handler = function()
@@ -32,12 +32,26 @@ return {
 
 			filesystem = {
 
-				-- =============== FADED HIDDEN ITEMS ============
-                
+                -- Use libuv to watch for file changes in real time
+				use_libuv_file_watcher = true,
+
+                -- When neotree is opened, focus on the current file
+				follow_current_file = {
+					enabled = true,
+				},
+
+                -- Show hidden or ignored files
 				filtered_items = {
 					visible = true,
 				},
+			},
 
+            -- Only show active buffers in the buffer source
+			buffers = {
+				follow_current_file = {
+					enabled = true,
+				},
+				show_unloaded = false,
 			},
 		})
 

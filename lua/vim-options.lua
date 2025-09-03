@@ -13,6 +13,12 @@ vim.g.mapleader = " "
 -- Enable mouse support
 vim.opt.mouse = "a"
 
+-- Reload buffer if file changes on disk
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    command = "if mode() != 'c' | checktime | endif",
+})
+
 -- 4 Space indents
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -58,6 +64,12 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     signs = true,
     update_in_insert = false,
 })
+
+-- Quickfix
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
+vim.keymap.set("n", "<leader>oq", "<cmd>copen<CR>")
+vim.keymap.set("n", "<leader>cq", "<cmd>cclose<CR>")
 
 -- Make lines wrap (visually, not including newlines) in Markdown files
 vim.api.nvim_create_autocmd("FileType", {

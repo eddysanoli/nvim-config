@@ -84,7 +84,6 @@ return {
 				},
 				["Git"] = {
 					{ "Preview hunk", "<leader>gp" },
-					{ "Open git status window (neotree)", "<leader>gs" },
 					{ "Open lazy git", "<leader>lg" },
 				},
 				["Grapple"] = {
@@ -107,6 +106,7 @@ return {
 				},
 				["Neotree"] = {
 					{ "Toggle file tree", "<C-b>" },
+					{ "Move through scopes (Files, buffers, git)", "gT" },
                     { "Create file", "a" },
                     { "Delete file", "d" },
 				},
@@ -137,6 +137,13 @@ return {
 					{ "List marks", "'" },
 					{ "List registers", '"' },
 				},
+                ["Quickfix"] = {
+                    { "Put all searched files in quickfix list", "<C-q>" },
+                    { "Cycle to next quickfix item", "<M-j>" },
+                    { "Cycle to previous quickfix item", "<M-k>" },
+                    { "Open quickfix list", "<leader>oq" },
+                    { "Close quickfix list", "<leader>cq" },
+                },
 				["Treesitter"] = {
 					{ "Update supported languages (Treesitter)", ":TSUpdate" },
 					{ "Start incremental selection", '<leader>ss' },
