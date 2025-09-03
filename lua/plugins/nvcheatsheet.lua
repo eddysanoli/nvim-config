@@ -141,8 +141,8 @@ return {
                     { "Put all searched files in quickfix list", "<C-q>" },
                     { "Cycle to next quickfix item", "<M-j>" },
                     { "Cycle to previous quickfix item", "<M-k>" },
-                    { "Open quickfix list", "<leader>oq" },
-                    { "Close quickfix list", "<leader>cq" },
+                    { "Open quickfix list", "<leader>qo" },
+                    { "Close quickfix list", "<leader>qc" },
                 },
 				["Treesitter"] = {
 					{ "Update supported languages (Treesitter)", ":TSUpdate" },
