@@ -3,8 +3,8 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		dependencies = {
-			'nvim-treesitter/nvim-treesitter-textobjects',
-            'nvim-treesitter/nvim-treesitter-context',
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/nvim-treesitter-context",
 		},
 		config = function()
 			local config = require("nvim-treesitter.configs")
@@ -12,7 +12,17 @@ return {
 				auto_install = true, -- Automatically install parsers for languages treesitter doesn't know
 				highlight = { enable = true },
 				indent = { enable = true },
-				ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+				ensure_installed = {
+					"c",
+					"lua",
+					"vim",
+					"vimdoc",
+					"query",
+					"markdown",
+					"markdown_inline",
+					"gotmpl",
+					"helm",
+				},
 				incremental_selection = {
 					enable = true,
 					keymaps = {
@@ -41,10 +51,10 @@ return {
 						include_surrounding_whitespace = true,
 					},
 				},
-                context = {
-                    enable = true,
-                    max_lines = 1,
-                },
+				context = {
+					enable = true,
+					max_lines = 1,
+				},
 			})
 		end,
 	},
