@@ -20,10 +20,11 @@ return {
 			keymaps = {
 				["General"] = {
 					{ "Exit out of normal mode", "jk" },
+					{ "Return from 'go to definition'", "<C-o>" },
 				},
 				["Copilot"] = {
-					{ "Open Copilot chat", "<leader>cc" },
-					{ "Close Copilot chat", "<leader>cx" },
+					{ "Open Copilot chat", "<leader>cco" },
+					{ "Close Copilot chat", "<leader>ccx" },
 				},
 				["Folds"] = {
 					{ "Toggle fold", "za" },
@@ -63,7 +64,7 @@ return {
 					{ "Accept completion", "<CR>" },
 				},
 				["Comment"] = {
-					{ "Comment line toggle", "<leader>gc" },
+					{ "Comment line toggle", "gcc" },
 					{ "Comment block toggle", "gbc" },
 					{ "Comment visual selection", "gc" },
 					{ "Comment visual selection using block delimiters", "gb" },
@@ -83,8 +84,12 @@ return {
 					{ "Continue debugging session", "<leader>dc" },
 				},
 				["Git"] = {
-					{ "Preview hunk", "<leader>gp" },
+					{ "Preview hunk", "<leader>gh" },
 					{ "Open lazy git", "<leader>lg" },
+                    { "Reset hunk", "<leader>gr" },
+                    { "Show blame for current buffer", "<leader>gb" },
+                    { "Show blame for current line", "<leader>gc" },
+                    { "Set quickfix/loclist with git changes", "<leader>gq" },
 				},
 				["Grapple"] = {
 					{ "Add grapple tag", "<leader>ga" },
@@ -103,6 +108,7 @@ return {
 					{ "See references", "gr" },
 					{ "Go to definition", "gd" },
 					{ "Check documentation", "K" },
+                    { "Check LSP info for current buffer", ":LspInfo" }
 				},
 				["Neotree"] = {
 					{ "Toggle file tree", "<C-b>" },
@@ -143,6 +149,12 @@ return {
                     { "Cycle to previous quickfix item", "<M-k>" },
                     { "Open quickfix list", "<leader>qo" },
                     { "Close quickfix list", "<leader>qc" },
+                },
+                ["Search and Replace"] = {
+                    { "Replace word in current line", ":s/current-word/new-word/" },
+                    { "Replace word in entire file", ":%s/current-word/new-word/g" },
+                    { "Replace word in entire file (with confirmation)", ":%s/current-word/new-word/gc" },
+                    { "Replace word in all elements within quickfix list (with confirmation)", ":cdo %s/current-word/new-word/gc" },
                 },
 				["Treesitter"] = {
 					{ "Update supported languages (Treesitter)", ":TSUpdate" },

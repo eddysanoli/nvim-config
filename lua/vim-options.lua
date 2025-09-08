@@ -66,10 +66,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 -- Quickfix
-vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
-vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
-vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>")
-vim.keymap.set("n", "<leader>qc", "<cmd>cclose<CR>")
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { desc = "Cycle to next quickfix item" })
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", { desc = "Cycle to previous quickfix item" })
+vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>", { desc = "Open quickfix list" })
+vim.keymap.set("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix list" })
 
 -- Make lines wrap (visually, not including newlines) in Markdown files
 vim.api.nvim_create_autocmd("FileType", {
