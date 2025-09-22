@@ -82,12 +82,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- Setup for scope.lua session support
-vim.opt.sessionoptions = {
-    "buffers",
-    "tabpages",
-    "globals",
-}
+-- Setup for sessions.lua session support
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Disable spell checking for terminal buffers
 vim.cmd([[

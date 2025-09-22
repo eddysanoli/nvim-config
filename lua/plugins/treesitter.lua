@@ -22,6 +22,7 @@ return {
 					"markdown_inline",
 					"gotmpl",
 					"helm",
+                    "regex",
 				},
 				incremental_selection = {
 					enable = true,

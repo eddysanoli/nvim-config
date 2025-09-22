@@ -21,6 +21,10 @@ return {
 				["General"] = {
 					{ "Exit out of normal mode", "jk" },
 					{ "Return from 'go to definition'", "<C-o>" },
+					{ "List marks", "'" },
+					{ "List registers", '"' },
+                    { "Show diagnostics under cursor", "<C-w>d" },
+                    { "Set split sizes equal in height and width", "<C-w>=" },
 				},
 				["Copilot"] = {
 					{ "Open Copilot chat", "<leader>cco" },
@@ -129,6 +133,7 @@ return {
 					{ "Open X terminal", "X<C-\\>" },
 				},
 				["Trouble"] = {
+                    { "Preview diagnostics for current line", "gR" },
 					{ "Toggle trouble diagnostics", "<leader>td" },
 					{ "Toggle trouble diagnostics filter", "<leader>tb" },
 					{ "Toggle trouble symbols", "<leader>ts" },
@@ -138,10 +143,6 @@ return {
 				},
 				["Undotree"] = {
 					{ "Open Undotree", "<leader>ut" },
-				},
-				["Which-key"] = {
-					{ "List marks", "'" },
-					{ "List registers", '"' },
 				},
                 ["Quickfix"] = {
                     { "Put all searched files in quickfix list", "<C-q>" },
