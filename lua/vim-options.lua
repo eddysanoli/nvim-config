@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Setup for sessions.lua session support
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 
 -- Disable spell checking for terminal buffers
 vim.cmd([[
