@@ -38,7 +38,7 @@ return {
 			cb.setup({
 				comment_style = "line",
 				doc_width = 80, -- width of the document
-				box_width = 50, -- width of the boxes
+				box_width = 46, -- width of the boxes
 				borders = { -- symbols used to draw a box
 					top = "=",
 					bottom = "=",
@@ -55,7 +55,7 @@ return {
 					-- bottom_left = "╰",
 					-- bottom_right = "╯",
 				},
-				line_width = 50, -- width of the lines
+				line_width = 46, -- width of the lines
 				lines = { -- symbols used to draw a line
 					line = "=",
 					line_start = "=",

@@ -443,3 +443,4 @@ camelize
 validator
 pathlib
 cryptographic
+hasattr
