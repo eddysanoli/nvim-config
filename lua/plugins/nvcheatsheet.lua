@@ -38,6 +38,7 @@ return {
 				},
 				["Spelling"] = {
 					{ "See spelling suggestions", "<leader>zl" },
+                    { "See spelling suggestions (which-key)", "z=" },
 					{ "Add word under cursor as good word", "<leader>zg" },
 					{ "Add word under cursor as bad word", "<leader>zw" },
 					{ "Remove word under cursor from good word list", "<leader>zug" },
