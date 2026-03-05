@@ -85,7 +85,10 @@ return {
                                 settings = {
                                     basedpyright = {
                                         disableTaggedHints = true,
-                                        typeCheckingMode = "strict",
+                                        disabled = true,
+                                        analysis = {
+                                            useTypingExtensions = true,
+                                        }
                                     },
                                 },
                             })
@@ -97,11 +100,26 @@ return {
                             server.setup({
                                 capabilities = capabilities,
                                 settings = {
-                                    ruff = {
+                                    enable = true,
+                                    lint = {
                                         enable = true,
-                                        extendSelect = { "I", "F" }, -- Enable all rules
-                                        select = { "E", "W" }, -- Enable specific rules
                                     },
+                                    format = {
+                                        enable = true,
+                                    },
+                                    extendSelect = { "I", "F" }, -- Enable all rules
+                                    select = { "E", "W" }, -- Enable specific rules
+                                    configurationPreference = "filesystemFirst",
+
+                                    -- ruff = {
+                                    --     enable = true,
+                                    --     diagnostics = {
+                                    --         enable = true,
+                                    --     },
+                                    --     extendSelect = { "I", "F" }, -- Enable all rules
+                                    --     select = { "E", "W" }, -- Enable specific rules
+                                    --     configurationPreference = "filesystemFirst",
+                                    -- },
                                 },
                             })
                             return

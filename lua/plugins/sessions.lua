@@ -20,12 +20,12 @@ return {
             pre_save_cmds = { "Neotree close" },
             post_restore_cmds = { "Neotree filesystem show" },
 
-            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
             session_lens = {
                 picker = "telescope",
                 bufftypes_to_ignore = {},
                 load_on_setup = true,
-                theme_conf = { border = true },
+                picker_opts = { border = true },
                 previewer = false,
                 mappings = {
                     delete_session = { "n", "d" },
