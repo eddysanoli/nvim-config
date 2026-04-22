@@ -21,6 +21,12 @@ return {
                 ui = {
                     border = "rounded",
                 },
+                ensure_installed = {
+                    -- Golang
+                    "gofumpt",
+                    "goimports-reviser",
+                    "golines"
+                },
             })
             require("mason-lspconfig").setup({
                 ensure_installed = {
@@ -30,6 +36,9 @@ return {
                     "intelephense",
                     "html",
                     "vimls",
+
+                    -- Go
+                    "gopls",
 
                     -- Rust
                     "rust_analyzer",
@@ -70,7 +79,6 @@ return {
                         --     )
                         -- }
                         -- )
-
                         if server_name == "solargraph" then
                             server.setup({
                                 capabilities = capabilities,
@@ -80,6 +88,24 @@ return {
                                             or util.path.dirname(vim.api.nvim_buf_get_name(0)),
                                     },
                                 },
+                            })
+                            return
+                        elseif server_name == "gopls" then
+                            server.setup({
+                                on_attach = on_attach,
+                                capabilities = capabilities,
+                                cmd = {"gopls"},
+                                filetypes = {"go", "gomod", "gowork", "gotmpl"},
+                                root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+                                settings = {
+                                    gopls = {
+                                        completeUnimported = true,
+                                        usePlaceholders = true,
+                                        analyses = {
+                                            unusedparams = true,
+                                        }
+                                    }
+                                }
                             })
                             return
                         elseif server_name == "rust_analyzer" then

@@ -87,6 +87,9 @@ return {
 				["Debugging"] = {
 					{ "Toggle breakpoint", "<leader>dt" },
 					{ "Continue debugging session", "<leader>dc" },
+                    { "Open debugging sidebar", "<leader>dus" },
+                    { "(Go) Debug Golang Test", "<leader>dgt" },
+                    { "(Go) Debug last Golang Test", "<leader>dgl" },
 				},
 				["Git"] = {
 					{ "Preview hunk", "<leader>gh" },

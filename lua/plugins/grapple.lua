@@ -18,7 +18,7 @@ return {
 			{ "<leader>g4", "<cmd>Grapple select index=4<cr>", desc = "Select fourth tag" },
 			{ "<leader>gn", "<cmd>Grapple cycle_tags next<cr>", desc = "Grapple cycle next tag" },
 			{ "<leader>gp", "<cmd>Grapple cycle_tags prev<cr>", desc = "Grapple cycle previous tag" },
-			{ "<leader>gs", "<cmd>Grapple toggle_scopes<cr>", desc = "Grapple open scopes window" },
+			{ "<leader>gts", "<cmd>Grapple toggle_scopes<cr>", desc = "Grapple toggle scopes window" },
 		},
 	},
 }

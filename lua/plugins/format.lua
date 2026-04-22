@@ -29,6 +29,11 @@ return {
                     null_ls.builtins.formatting.isort.with({
                         only_local = true,
                     }),
+
+                    -- Go: These packages need to be installed using "go install" command
+                    null_ls.builtins.formatting.gofumpt,
+                    null_ls.builtins.formatting.goimports_reviser,
+                    null_ls.builtins.formatting.golines,
                 },
             })
 
