@@ -46,10 +46,10 @@ return {
 					{ "Toggle fold", "za" },
 					{ "Close all folds", "zM" },
 					{ "Open all folds", "zR" },
-					{ "Peek at folded lines", "zK" },
 				},
 				["Spelling"] = {
-					{ "See spelling suggestions", "<leader>zl" },
+					{ "See spelling suggestions (Telescope)", "<leader>zl" },
+					{ "Next / previous misspelled word", "]s / [s" },
                     { "See spelling suggestions (which-key)", "z=" },
 					{ "Add word under cursor as good word", "<leader>zg" },
 					{ "Add word under cursor as bad word", "<leader>zw" },
@@ -174,10 +174,17 @@ return {
                 },
 				["Treesitter"] = {
 					{ "Update supported languages (Treesitter)", ":TSUpdate" },
+					{ "Install parser for a language", ":TSInstall <lang>" },
 					{ "Start incremental selection", '<leader>ss' },
-					{ "Increment selection by node", '<leader>si' },
-					{ "Increment selection by scope", '<leader>sc' },
-					{ "Decrement selection by node", '<leader>sd' },
+					{ "Increment selection by node (visual: an)", '<leader>si' },
+					{ "Decrement selection by node (visual: in)", '<leader>sd' },
+				},
+				["Refactoring"] = {
+					{ "Pick a refactor", "<leader>rs" },
+					{ "Extract function (motion or selection)", "<leader>re" },
+					{ "Extract variable (motion or selection)", "<leader>rv" },
+					{ "Inline variable", "<leader>ri" },
+					{ "Inline function", "<leader>rI" },
 				},
 				["Regex"] = {
 					{ "Explain regex under cursor (Regexplainer)", "gR" },

@@ -4,6 +4,7 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
             "saghen/blink.cmp", -- Registers its completion capabilities for all servers on its own
         },
         event = { "BufReadPre", "BufNewFile" },
@@ -37,6 +38,15 @@ return {
                             enable = true,
                             disabled = { "unresolved-imports" },
                         },
+                    },
+                },
+            })
+
+            -- bash-language-server can't run Mason's shellcheck.cmd wrapper on Windows, so point it at the .exe
+            vim.lsp.config("bashls", {
+                settings = {
+                    bashIde = {
+                        shellcheckPath = vim.fn.stdpath("data") .. "/mason/packages/shellcheck/shellcheck.exe",
                     },
                 },
             })
@@ -110,6 +120,32 @@ return {
                 },
             })
 
+            -- Formatters, linters and other tools (language servers are installed above)
+            require("mason-tool-installer").setup({
+                ensure_installed = {
+                    -- Formatters used by conform.nvim
+                    "stylua",
+                    "prettier",
+                    "gofumpt",
+                    "goimports-reviser",
+                    "golines",
+
+                    -- Used by bashls for diagnostics
+                    "shellcheck",
+
+                    -- Go debugger for nvim-dap-go
+                    "delve",
+
+                    -- Builds the parsers for nvim-treesitter
+                    "tree-sitter-cli",
+                },
+            })
+            -- The installer checks on VimEnter. When this config loads later (for example opening a
+            -- file from the dashboard), VimEnter has already passed, so start the check here
+            if vim.v.vim_did_enter == 1 then
+                require("mason-tool-installer").run_on_start()
+            end
+
             -- =============================
             -- KEYMAPS
             -- =============================
@@ -142,8 +178,17 @@ return {
                         desc = "Show references",
                     })
 
-                    -- Inlay hints only for Rust
                     local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+                    -- Use the language server's folds instead of treesitter's when it provides them
+                    if client and client:supports_method("textDocument/foldingRange") then
+                        local win = vim.api.nvim_get_current_win()
+                        if vim.api.nvim_win_get_buf(win) == ev.buf then
+                            vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
+                        end
+                    end
+
+                    -- Inlay hints only for Rust
                     if client and client.name == "rust_analyzer" then
                         vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
                     end

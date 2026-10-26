@@ -1,6 +1,11 @@
 return {
 	{
 		"github/copilot.vim",
+		init = function()
+			-- Use the language server bundled with the plugin. The default runs it through npx,
+			-- which fails on Windows ("copilot-language-server" is not recognized)
+			vim.g.copilot_version = false
+		end,
 	},
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
@@ -11,7 +16,6 @@ return {
 		},
 		config = function()
 			require("CopilotChat").setup({
-				debug = true,
 				show_help = true,
 			})
 		end,

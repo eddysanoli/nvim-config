@@ -36,7 +36,6 @@ return {
                 vim.bo[ctx.buf].synmaxcol = 200
                 -- Don't write an undo file for every save
                 vim.bo[ctx.buf].undofile = false
-                vim.b[ctx.buf].enable_spelunker_vim = 0
             end,
         },
     },

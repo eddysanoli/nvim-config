@@ -28,7 +28,8 @@ end
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.6",
+		-- master: 0.1.x still uses nvim-treesitter's old "master" modules for previews
+		branch = "master",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{

@@ -14,6 +14,27 @@ vim.keymap.set("v", "<Tab>", ">gv")
 vim.keymap.set("v", "<S-Tab>", "<gv")
 
 -- =============================
+-- SPELLING
+-- =============================
+
+-- Same keys spelunker used, now for the built-in spell checker. The word list is spell/en.utf-8.add
+vim.keymap.set("n", "<leader>zg", "zg", { desc = "Add word to dictionary" })
+vim.keymap.set("n", "<leader>zl", "<cmd>Telescope spell_suggest<CR>", { desc = "List corrections for misspelling" })
+vim.keymap.set("n", "<leader>zw", "zw", { desc = "Add word to misspelled words" })
+vim.keymap.set("n", "<leader>zug", "zug", { desc = "Undo dictionary addition of word" })
+vim.keymap.set("n", "<leader>zuw", "zuw", { desc = "Undo misspelled word addition" })
+
+-- =============================
+-- INCREMENTAL SELECTION
+-- =============================
+
+-- Neovim 0.12 has treesitter incremental selection built in: `an` (parent node) and `in` (child node)
+-- in visual mode. These keep the keys that nvim-treesitter's master branch provided
+vim.keymap.set("n", "<leader>ss", "van", { remap = true, desc = "Start incremental selection" })
+vim.keymap.set("x", "<leader>si", "an", { remap = true, desc = "Increment selection to parent node" })
+vim.keymap.set("x", "<leader>sd", "in", { remap = true, desc = "Decrement selection to child node" })
+
+-- =============================
 -- TERMINAL
 -- =============================
 

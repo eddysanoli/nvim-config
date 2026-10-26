@@ -9,8 +9,11 @@ vim.opt.smartindent = true
 -- Enable 24bit color support. Needed for bufferline and notify
 vim.opt.termguicolors = true
 
--- Delay before CursorHold fires (used by checktime, lightbulb, spelunker, gitsigns blame)
+-- Delay before CursorHold fires (used by lightbulb and gitsigns blame)
 vim.opt.updatetime = 250
+
+-- Rounded borders on every floating window (hover, signature help, diagnostics, plugin popups)
+vim.o.winborder = "rounded"
 
 -- Leader key
 vim.g.mapleader = " "
@@ -18,9 +21,9 @@ vim.g.mapleader = " "
 -- Enable mouse support
 vim.opt.mouse = "a"
 
--- Reload buffer if file changes on disk
+-- Reload buffer if file changes on disk. Checked when Neovim regains focus or a buffer is entered
 vim.opt.autoread = true
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
     group = augroup,
     command = "if mode() != 'c' | checktime | endif",
 })
@@ -63,9 +66,31 @@ vim.opt.scrolloff = 20
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
--- Spell checking
-vim.opt.spell = false
+-- Spell checking (built in). With treesitter highlighting only comments and strings are checked
 vim.opt.spelllang = { "en_us" }
+vim.opt.spelloptions = "camel" -- Check each part of camelCase words separately
+vim.opt.spellcapcheck = "" -- Don't flag lowercase words at the start of a "sentence" (noisy in code)
+vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+
+-- Only in normal file buffers, not in dashboards, file trees, pickers or terminals. Big files skip it too
+vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
+    callback = function(ev)
+        if vim.bo[ev.buf].buftype == "" and ev.match ~= "bigfile" then
+            vim.opt_local.spell = true
+        end
+    end,
+})
+
+-- The compiled word list (.spl) isn't kept in git. Rebuild it when it's missing or older than
+-- the word list (.add), e.g. after pulling words added on another machine
+do
+    local add = vim.o.spellfile
+    local add_stat, spl_stat = vim.uv.fs_stat(add), vim.uv.fs_stat(add .. ".spl")
+    if add_stat and (not spl_stat or spl_stat.mtime.sec < add_stat.mtime.sec) then
+        vim.cmd("silent mkspell! " .. vim.fn.fnameescape(add))
+    end
+end
 
 -- Squiggly underlines for errors instead of displaying errors as virtual text
 -- vim.cmd.highlight("highlight-name gui=undercurl")
@@ -103,7 +128,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
     command = "setlocal nospell",
 })
 
--- Folds
+-- Folds. Native folding from treesitter; lsp-config.lua switches a window to the language server's
+-- folds when it supports them. Big files fall back to manual folds (see snacks.lua)
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "" -- Show the first line of a fold with its normal highlighting
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99

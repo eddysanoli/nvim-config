@@ -6,8 +6,7 @@ return {
     event = "VeryLazy",
     config = function()
         require("lualine").setup({
-            disabled_filetypes = { "neo-tree" },
-            options = { theme = "dracula" },
+            options = { theme = "catppuccin" },
             sections = {
                 lualine_b = {
                     "diff",

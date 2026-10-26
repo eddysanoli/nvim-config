@@ -1,0 +1,2 @@
+# Compiled spell word list. Rebuilt from spell/*.add on startup (see vim-options.lua)
+spell/*.spl
