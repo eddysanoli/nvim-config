@@ -5,7 +5,7 @@ return {
 	priority = 1000,
 	config = function()
 		require("catppuccin").setup({
-			flavour = "mocha",
+			flavour = require("theme").flavour,
 			integrations = {
 				mason = true,
 				neotree = true,
@@ -18,9 +18,17 @@ return {
                 copilot_vim = true,
 			},
 
-			-- Custom highlights for nvcheatsheet
 			custom_highlights = function(colors)
 				return {
+					-- Spelling mistakes get a dotted underline instead of catppuccin's red squiggle, so
+					-- they don't look like code errors (diagnostics keep the squiggle). Mauve isn't used
+					-- by any diagnostic level
+					SpellBad = { sp = colors.mauve, style = { "underdotted" } },
+					SpellCap = { sp = colors.yellow, style = { "underdotted" } },
+					SpellLocal = { sp = colors.blue, style = { "underdotted" } },
+					SpellRare = { sp = colors.green, style = { "underdotted" } },
+
+					-- Custom highlights for nvcheatsheet
 					NvChAsciiHeader = { bg = colors.base, fg = colors.subtext0 }, -- Title
 					NvChSection = { bg = colors.surface0 }, -- Each card
 
@@ -39,6 +47,6 @@ return {
 			end,
 		})
 
-		vim.cmd.colorscheme("catppuccin")
+		vim.cmd.colorscheme(require("theme").colorscheme)
 	end,
 }

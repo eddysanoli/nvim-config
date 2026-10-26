@@ -31,6 +31,14 @@ return {
             end
         end,
         config = function()
+            -- Workaround: lsp-file-operations checks its log file every 30s and errors if it doesn't
+            -- exist, but only creates it the first time it logs something. Create it up front
+            local lfo_log = vim.fs.joinpath(vim.fn.stdpath("cache"), "lsp-file-operations.log")
+            if not vim.uv.fs_stat(lfo_log) then
+                vim.fn.mkdir(vim.fn.stdpath("cache"), "p")
+                vim.fn.writefile({}, lfo_log)
+            end
+
             require("lsp-file-operations").setup({
                 debug = false,
 

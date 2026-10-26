@@ -6,7 +6,7 @@ return {
     event = "VeryLazy",
     config = function()
         require("lualine").setup({
-            options = { theme = "catppuccin" },
+            options = { theme = require("theme").lualine },
             sections = {
                 lualine_b = {
                     "diff",
