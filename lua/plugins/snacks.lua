@@ -9,7 +9,7 @@ return {
     end,
     opts = {
         -- Files over 1.5MB, or with very long lines (minified files), get the filetype "bigfile".
-        -- That alone stops treesitter, LSP, none-ls and filetype plugins from attaching
+        -- That alone stops treesitter, LSP and filetype plugins from attaching
         bigfile = {
             enabled = true,
             size = 1.5 * 1024 * 1024,

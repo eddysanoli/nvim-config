@@ -92,6 +92,19 @@ do
     end
 end
 
+-- Neovim never trims lsp.log (it reached 275 MB). Empty it at startup once it passes 5 MB,
+-- before any language server has started writing to it
+do
+    local lsp_log = vim.fs.joinpath(vim.fn.stdpath("log"), "lsp.log")
+    local stat = vim.uv.fs_stat(lsp_log)
+    if stat and stat.size > 5 * 1024 * 1024 then
+        local fd = vim.uv.fs_open(lsp_log, "w", 420)
+        if fd then
+            vim.uv.fs_close(fd)
+        end
+    end
+end
+
 -- Squiggly underlines for errors instead of displaying errors as virtual text
 -- vim.cmd.highlight("highlight-name gui=undercurl")
 vim.diagnostic.config({

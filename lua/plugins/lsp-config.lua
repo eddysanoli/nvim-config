@@ -80,6 +80,8 @@ return {
             vim.lsp.config("ruff", {
                 init_options = {
                     settings = {
+                        -- Ruff logs to stderr, which Neovim writes to lsp.log. Keep only warnings and errors
+                        logLevel = "warn",
                         configurationPreference = "filesystemFirst",
                         lint = {
                             enable = true,

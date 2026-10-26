@@ -5,6 +5,8 @@ return {
 			-- Use the language server bundled with the plugin. The default runs it through npx,
 			-- which fails on Windows ("copilot-language-server" is not recognized)
 			vim.g.copilot_version = false
+			-- Node prints an "experimental feature" warning on every start, which ends up in lsp.log
+			vim.g.copilot_node_command = { "node", "--no-warnings" }
 		end,
 	},
 	{

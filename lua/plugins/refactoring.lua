@@ -1,5 +1,5 @@
--- Extract/inline variables and functions. The plugin's rewrite (Neovim 0.12.5+) dropped the API that
--- none-ls's "refactoring" code action used, so it's used through its own keymaps instead.
+-- Extract/inline variables and functions, through the plugin's own keymaps. (Its rewrite for
+-- Neovim 0.12.5+ dropped the API that code-action integrations like none-ls's relied on.)
 -- The operator keymaps (expr = true) take a motion or work on a visual selection
 local function refactor(fn)
     return function()
