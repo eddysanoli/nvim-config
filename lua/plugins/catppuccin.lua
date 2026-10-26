@@ -28,6 +28,11 @@ return {
 					SpellLocal = { sp = colors.blue, style = { "underdotted" } },
 					SpellRare = { sp = colors.green, style = { "underdotted" } },
 
+					-- The winbar (dropbar's breadcrumbs on top of each window) has no background in
+					-- catppuccin, so the terminal's black background showed through. Use the editor's
+					WinBar = { fg = colors.rosewater, bg = colors.base },
+					WinBarNC = { fg = colors.overlay1, bg = colors.base },
+
 					-- Custom highlights for nvcheatsheet
 					NvChAsciiHeader = { bg = colors.base, fg = colors.subtext0 }, -- Title
 					NvChSection = { bg = colors.surface0 }, -- Each card
