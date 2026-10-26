@@ -51,8 +51,14 @@ return {
 				close_on_exit = true,
 				float_opts = {
 					border = "curved",
-					width = math.ceil(vim.o.columns * 0.8),
-					height = math.ceil(vim.o.lines * 0.2),
+					-- Size of floating terminals (lazygit, powershell). Functions, so the size is
+					-- measured when the terminal opens and follows window resizes
+					width = function()
+						return math.floor(vim.o.columns * 0.8)
+					end,
+					height = function()
+						return math.floor(vim.o.lines * 0.9)
+					end,
 					highlights = {
 						border = "Normal",
 						background = "Normal",
