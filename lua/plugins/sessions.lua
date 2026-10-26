@@ -46,6 +46,35 @@ return {
                         end
                     end
                 end,
+                -- localoptions also stores each buffer's filetype, so a filetype detected by an older
+                -- Neovim sticks around (e.g. .env was "sh", which made bashls report every variable as
+                -- unused). Re-detect it, and detach language servers that don't handle the corrected one
+                function()
+                    for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        local buf = vim.api.nvim_win_get_buf(win)
+                        local current = vim.bo[buf].filetype
+                        local detected = vim.bo[buf].buftype == "" and vim.filetype.match({ buf = buf })
+                        if detected and detected ~= current and current ~= "bigfile" then
+                            vim.bo[buf].filetype = detected
+                            -- Servers may still attach for the old filetype, so check now and on attach
+                            local function drop_mismatched()
+                                for _, client in ipairs(vim.lsp.get_clients({ bufnr = buf })) do
+                                    local fts = client.config.filetypes
+                                    if fts and not vim.tbl_contains(fts, detected) then
+                                        vim.lsp.buf_detach_client(buf, client.id)
+                                    end
+                                end
+                            end
+                            drop_mismatched()
+                            vim.api.nvim_create_autocmd("LspAttach", {
+                                buffer = buf,
+                                callback = function()
+                                    vim.schedule(drop_mismatched)
+                                end,
+                            })
+                        end
+                    end
+                end,
                 "Neotree filesystem show",
             },
 
