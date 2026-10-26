@@ -63,6 +63,13 @@ return {
 				desc = "CopilotChat - Close chat window",
 				silent = true,
 			},
+			-- View/select available models
+            {
+                "<leader>ccm",
+                ":CopilotChatModels<CR>",
+                desc = "CopilotChat - View/select models",
+                silent = true,
+            }
 		},
 	},
 }
