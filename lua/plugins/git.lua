@@ -10,6 +10,10 @@ return {
 			require("gitsigns").setup({
 				signcolumn = true,
 				current_line_blame = true,
+				-- Skip big files (see snacks.lua). Returning false stops gitsigns from attaching
+				on_attach = function(bufnr)
+					return vim.bo[bufnr].filetype ~= "bigfile"
+				end,
 			})
 			vim.keymap.set("n", "<leader>gh", ":Gitsigns preview_hunk<CR>", { desc = "Preview git hunk (file diff)" })
             vim.keymap.set("n", "<leader>gr", ":Gitsigns reset_hunk<CR>", { desc = "Reset git hunk" })

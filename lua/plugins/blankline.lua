@@ -9,6 +9,10 @@ return {
 				show_start = false,
 				show_end = false,
 			},
+			-- Added to ibl's default exclude list. Big files are detected in snacks.lua
+			exclude = {
+				filetypes = { "bigfile" },
+			},
 		})
 	end,
 }

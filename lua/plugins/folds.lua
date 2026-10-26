@@ -23,7 +23,11 @@ return {
 	config = function()
 		local ufo = require("ufo")
 		ufo.setup({
-			provider_selector = function()
+			provider_selector = function(_, filetype)
+				-- No folding for big files (see snacks.lua)
+				if filetype == "bigfile" then
+					return ""
+				end
 				return {
 					"lsp",
 					"indent",

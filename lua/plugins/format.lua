@@ -18,6 +18,10 @@ return {
         config = function()
             local null_ls = require("null-ls")
             null_ls.setup({
+                -- Some sources (like gitsigns code actions) apply to every filetype, so skip big files explicitly
+                should_attach = function(bufnr)
+                    return vim.bo[bufnr].filetype ~= "bigfile"
+                end,
                 sources = {
                     null_ls.builtins.formatting.stylua,
                     null_ls.builtins.formatting.prettier,
