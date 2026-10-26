@@ -132,6 +132,11 @@ return {
                     "ruff",
                     "basedpyright",
                 },
+                automatic_enable = {
+                    -- Installed for conform.nvim, which runs it for formatting. Without this it would
+                    -- also start as a language server on every Lua file
+                    exclude = { "stylua" },
+                },
             })
 
             -- Formatters, linters and other tools (language servers are installed above)
