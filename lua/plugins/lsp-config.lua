@@ -6,6 +6,8 @@ return {
             "williamboman/mason-lspconfig.nvim",
             "saghen/blink.cmp", -- Registers its completion capabilities for all servers on its own
         },
+        event = { "BufReadPre", "BufNewFile" },
+        cmd = { "Mason", "LspInfo" },
         config = function()
             -- =============================
             -- SERVER SETTINGS

@@ -7,6 +7,7 @@ return {
             "jdrupal-dev/css-vars.nvim",
         },
         version = "1.*",
+        event = { "InsertEnter", "CmdlineEnter" },
         opts = {
             -- All presets have the following mappings:
             -- C-space: Open menu or open docs if already open

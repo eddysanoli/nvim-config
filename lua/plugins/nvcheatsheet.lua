@@ -1,5 +1,9 @@
 return {
 	"smartinellimarco/nvcheatsheet.nvim",
+	keys = {
+		{ "<leader>ch", desc = "Toggle cheatsheet" },
+		{ "<leader>?", desc = "Toggle cheatsheet" },
+	},
 	config = function()
 		local nvcheatsheet = require("nvcheatsheet")
 

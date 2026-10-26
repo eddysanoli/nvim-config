@@ -26,6 +26,25 @@ require("keymaps")
 require("lazy").setup("plugins", {
     ui = {
         border = "rounded"
-    }
+    },
+    install = {
+        colorscheme = { "catppuccin" },
+    },
+    change_detection = {
+        notify = false,
+    },
+    performance = {
+        rtp = {
+            -- Built-in plugins that are never used. Directories are handled by neo-tree instead of netrw
+            disabled_plugins = {
+                "gzip",
+                "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
 })
 

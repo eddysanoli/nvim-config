@@ -1,5 +1,12 @@
 return {
     'rcarriga/nvim-notify',
+    lazy = true,
+    -- Load the plugin the first time something sends a notification
+    init = function()
+        vim.notify = function(...)
+            return require('notify')(...)
+        end
+    end,
     config = function()
         require('notify').setup({
             stages = "fade_in_slide_out",

@@ -6,6 +6,8 @@ return {
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"nvim-treesitter/nvim-treesitter-context",
 		},
+		event = { "BufReadPost", "BufNewFile" },
+		cmd = { "TSUpdate", "TSUpdateSync", "TSInstall", "TSInstallInfo" },
 		config = function()
 			local config = require("nvim-treesitter.configs")
 			config.setup({
@@ -52,10 +54,11 @@ return {
 						include_surrounding_whitespace = true,
 					},
 				},
-				context = {
-					enable = true,
-					max_lines = 1,
-				},
+			})
+
+			-- treesitter-context is configured on its own, not through nvim-treesitter's setup
+			require("treesitter-context").setup({
+				max_lines = 1,
 			})
 		end,
 	},

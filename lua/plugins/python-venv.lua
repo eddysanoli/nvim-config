@@ -6,7 +6,6 @@ return {
     {
         "tnfru/nvim-venv-detector",
         ft = "python",
-        event = "VimEnter",
         config = function()
             require("venv_detector").setup({
                 auto_activate_venv = true, -- Set VIRTUAL_ENV and PATH automatically (default: true)

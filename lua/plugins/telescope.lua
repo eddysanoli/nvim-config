@@ -36,33 +36,41 @@ return {
 				-- For major updates, this must be adjusted manually.
 				version = "^1.0.0",
 			},
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			"nvim-telescope/telescope-ui-select.nvim",
 		},
+		cmd = "Telescope",
+		keys = {
+			{ "<C-p>", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{
+				"<leader>ft",
+				function()
+					require("telescope").extensions.live_grep_args.live_grep_args()
+				end,
+				desc = "Search text in files (Live grep)",
+			},
+			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
+			{ "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Find notifications" },
+			{ "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols (variables, functions, etc)" },
+			{ "<leader>fo", "<cmd>Telescope oldfiles<cr>", desc = "Search previously opened files" },
+			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Find help tags" },
+			{ "<leader>fw", "<cmd>Telescope grep_string<cr>", desc = "Search for the currently selected word" },
+		},
+		init = function()
+			-- Load telescope the first time something asks for a selection. Loading the ui-select
+			-- extension replaces vim.ui.select, so the call below goes to telescope
+			---@diagnostic disable-next-line: duplicate-set-field
+			vim.ui.select = function(...)
+				require("telescope")
+				return vim.ui.select(...)
+			end
+		end,
 		config = function()
 			local telescope = require("telescope")
-			local builtin = require("telescope.builtin")
 			local actions = require("telescope.actions")
 
-			vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find files" })
-			vim.keymap.set(
-				"n",
-				"<leader>ft",
-				"<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-				{ desc = "Search text in files (Live grep)" }
-			)
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
-			vim.keymap.set("n", "<leader>fn", "<cmd>Telescope notify<cr>", { desc = "Find notifications" })
-			vim.keymap.set(
-				"n",
-				"<leader>fs",
-				builtin.lsp_document_symbols,
-				{ desc = "Find symbols (variables, functions, etc)" }
-			)
-			vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "Search previously opened files" })
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
-			vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "Search for the currently selected word" })
-
-			require("telescope").setup({
+			telescope.setup({
 				defaults = {
 					path_display = filenameFirst,
 					mappings = {
@@ -87,33 +95,33 @@ return {
 						},
 					},
 				},
-			})
-
-			telescope.load_extension("live_grep_args")
-		end,
-	},
-	{
-		"nvim-telescope/telescope-ui-select.nvim",
-		config = function()
-			require("telescope").setup({
 				extensions = {
 					["ui-select"] = { require("telescope.themes").get_dropdown({}) },
 				},
 			})
-			require("telescope").load_extension("ui-select")
+
+			telescope.load_extension("live_grep_args")
+			telescope.load_extension("ui-select")
+			telescope.load_extension("fzf")
 		end,
 	},
 	{
 		"AckslD/nvim-neoclip.lua",
-		dependencies = { "nvim-telescope/telescope.nvim" },
+		-- Loads on the first yank so the history is recorded. Telescope loads when the list is opened
+		event = "TextYankPost",
+		keys = {
+			{
+				"<leader>fc",
+				function()
+					require("telescope").extensions.neoclip.default()
+				end,
+				desc = "Find clipboard history",
+			},
+		},
 		config = function()
 			require("neoclip").setup({
 				history = 20,
 			})
-
-			vim.keymap.set("n", "<leader>fc", function()
-				require("telescope").extensions.neoclip.default()
-			end, { desc = "Find clipboard history" })
 		end,
 	},
 }

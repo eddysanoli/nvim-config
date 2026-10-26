@@ -1,5 +1,6 @@
 return {
     "kosayoda/nvim-lightbulb",
+    event = "LspAttach",
     config = function()
         require("nvim-lightbulb").setup({
             -- updatetime = -1 keeps lightbulb from overriding the value in vim-options.lua

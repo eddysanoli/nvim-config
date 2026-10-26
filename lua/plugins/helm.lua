@@ -1,6 +1,8 @@
 return {
     "towolf/vim-helm",
-    config = function()
+    ft = "helm",
+    -- Runs at startup so the filetypes are known before the plugin loads
+    init = function()
         vim.filetype.add({
             extension = {
                 gotmpl = "gotmpl",

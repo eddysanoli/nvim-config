@@ -1,7 +1,7 @@
 return {
 	{
+		-- Loaded by its keys, or by nvim-dap's config when debugging a Go file
 		"leoluz/nvim-dap-go",
-		ft = "go",
 		dependencies = { "mfussenegger/nvim-dap" },
 		config = function(_, opts)
 			require("dap-go").setup(opts)
@@ -17,12 +17,22 @@ return {
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
 		},
+		keys = {
+			{ "<Leader>dt", desc = "Toggle debugging breakpoint" },
+			{ "<Leader>dc", desc = "Continue to next debugging step" },
+			{ "<leader>ds", desc = "Open debugging sidebar" },
+		},
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
 
 			-- Setup the UI and debuggers
 			require("dapui").setup()
+
+			-- Register the Go debug configurations, so <Leader>dc works in Go files
+			if vim.bo.filetype == "go" then
+				require("dap-go")
+			end
 
 			-- Initialize the UI automatically when nvim-dap starts
 			dap.listeners.before.attach.dapui_config = function()

@@ -1,6 +1,7 @@
 return {
     {
         "cappyzawa/trim.nvim",
+        cmd = { "Trim", "TrimToggle" },
         config = function()
             require("trim").setup({
                 trim_on_write = false,
@@ -13,6 +14,7 @@ return {
         dependencies = {
             "nvimtools/none-ls-extras.nvim",
         },
+        event = { "BufReadPre", "BufNewFile" },
         config = function()
             local null_ls = require("null-ls")
             null_ls.setup({

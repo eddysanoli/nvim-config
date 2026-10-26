@@ -1,9 +1,11 @@
 return {
 	{
 		"tpope/vim-fugitive",
+		cmd = { "G", "Git", "Gdiffsplit", "Gvdiffsplit", "Gread", "Gwrite", "Gedit", "Ggrep", "Glgrep", "Gclog", "GMove", "GRename", "GDelete", "GRemove", "GBrowse" },
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("gitsigns").setup({
 				signcolumn = true,

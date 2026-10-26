@@ -7,7 +7,6 @@ return {
 		build = "make tiktoken",
 		dependencies = {
 			{ "github/copilot.vim" },
-			{ "nvim-telescope/telescope.nvim" },
 			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log wrapper
 		},
 		config = function()
@@ -15,28 +14,20 @@ return {
 				debug = true,
 				show_help = true,
 			})
-
-			vim.keymap.set("n", "<leader>cco", ":CopilotChatOpen<CR>", { silent = true, desc = "Open Copilot Chat" })
-			vim.keymap.set("n", "<leader>ccx", ":CopilotChatClose<CR>", { silent = true, desc = "Close Copilot Chat" })
 		end,
-		event = "VeryLazy",
+		cmd = {
+			"CopilotChat",
+			"CopilotChatOpen",
+			"CopilotChatClose",
+			"CopilotChatToggle",
+			"CopilotChatModels",
+			"CopilotChatPrompts",
+		},
 		keys = {
-			-- Show help actions with telescope
-			{
-				"<leader>cch",
-				function()
-					local actions = require("CopilotChat.actions")
-					require("CopilotChat.integrations.telescope").pick(actions.help_actions())
-				end,
-				desc = "CopilotChat - Help actions",
-			},
-			-- Show prompts actions with telescope
+			-- Pick a prompt (uses vim.ui.select, which telescope-ui-select displays)
 			{
 				"<leader>ccp",
-				function()
-					local actions = require("CopilotChat.actions")
-					require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-				end,
+				"<cmd>CopilotChatPrompts<CR>",
 				desc = "CopilotChat - Prompt actions",
 			},
 			-- Quick chat with Copilot
@@ -45,7 +36,7 @@ return {
 				function()
 					local input = vim.fn.input("Quick Chat: ")
 					if input ~= "" then
-						vim.cmd("CopilotChatBuffer " .. input)
+						vim.cmd("CopilotChat " .. input)
 					end
 				end,
 				desc = "CopilotChat - Quick chat",

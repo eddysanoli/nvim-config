@@ -2,9 +2,12 @@ return {
 	{
 		"ryanmsnyder/toggleterm-manager.nvim",
 		dependencies = {
-			"akinsho/nvim-toggleterm.lua",
+			"akinsho/toggleterm.nvim",
 			"nvim-telescope/telescope.nvim",
 			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>tm", desc = "Open toggle term manager" },
 		},
 		config = function()
 			local toggleterm_manager = require("toggleterm-manager")
@@ -30,6 +33,12 @@ return {
 	{
 		"akinsho/toggleterm.nvim",
 		version = "2.11.0",
+		cmd = { "ToggleTerm", "TermExec", "ToggleTermToggleAll" },
+		keys = {
+			{ "<C-\\>", desc = "Open new terminal" },
+			{ "<leader>lg", desc = "Open LazyGit in a floating terminal" },
+			{ "<leader>pwsh", desc = "Open Powershell in a floating terminal" },
+		},
 		config = function()
 			require("toggleterm").setup({
 				open_mapping = "<C-\\>",
