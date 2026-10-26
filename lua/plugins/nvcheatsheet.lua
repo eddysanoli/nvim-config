@@ -38,7 +38,7 @@ return {
 					{ "View/select models", "<leader>ccm" },
 				},
 				["Indent"] = {
-					{ "Indent / de-indent selection (visual mode)", "<Tab> / <S-Tab>" },
+					{ "Indent / de-indent selection (visual)", "<Tab> / <S-Tab>" },
 					{ "Indent / de-indent line", ">> / <<" },
 					{ "Jump forward in jumplist", "<C-i>" },
 				},
@@ -73,22 +73,22 @@ return {
                     { "Search for the currently selected word", "<leader>fw" },
                     { "Search through clipboard", "<leader>fc" },
                     { "See all shown notifications", "<leader>fn" },
-                    { "Previous / next search in history (in picker)", "<C-k> / <C-j>" },
+                    { "Prev / next search history (in picker)", "<C-k> / <C-j>" },
                     { "Open result in horizontal / vertical split", "<C-x> / <C-v>" },
                     { "Delete buffer (buffer picker)", "<C-d> / d" },
                     { "Show all picker keymaps (in picker)", "<C-/>" },
 				},
 				["Live Grep (<leader>ft)"] = {
 					{ "Quote the search text, then add filters", '"text" <flags>' },
-					{ "Only one file type (rg --type-list shows names)", '"text" -t py' },
+					{ "Only one file type (names: rg --type-list)", '"text" -t py' },
 					{ "Exclude a file type", '"text" -T js' },
 					{ "Only files matching a glob", '"text" -g *.sql' },
-					{ "Only files in a folder (any depth)", '"text" --iglob **/tests/**' },
+					{ "Only files under a folder", '"text" --iglob **/tests/**' },
 					{ "Exclude a folder", '"text" -g !**/vendor/**' },
 					{ "Case-sensitive search", '"Text" -s' },
 					{ "Whole word only", '"text" -w' },
 					{ "Literal text (no regex)", '"a.b(c)" -F' },
-					{ "Include ignored and hidden files", '"text" --no-ignore --hidden' },
+					{ "Search ignored/hidden files", '"text" --no-ignore --hidden' },
 					{ "Starting with a flag also works", "-t py text" },
 				},
 				["Completions"] = {
@@ -140,7 +140,7 @@ return {
                     { "Remove tag", "List tags. Delete a line" }
 				},
 				["LSP"] = {
-					{ "See code actions (lightbulb will show up on the left)", "<leader>ca" },
+					{ "Code actions (lightbulb shows on the left)", "<leader>ca" },
 					{ "See references", "gr" },
 					{ "Go to definition", "gd" },
 					{ "Check documentation", "K" },
@@ -163,9 +163,9 @@ return {
 					{ "Example: change a function's body", "cif" },
 				},
 				["Surround"] = {
-					{ "Add surrounding to a motion (e.g. ysiw\" quotes a word)", "ys<motion><char>" },
-					{ "Change surrounding (e.g. cs\"' swaps \" for ')", "cs<old><new>" },
-					{ "Delete surrounding (e.g. ds( removes parentheses)", "ds<char>" },
+					{ "Add surrounding (ysiw\" quotes a word)", "ys<motion><char>" },
+					{ "Change surrounding (cs\"' swaps \" for ')", "cs<old><new>" },
+					{ "Delete surrounding (ds( removes parens)", "ds<char>" },
 					{ "Surround visual selection", "S<char> (visual)" },
 				},
 				["Neotree"] = {
@@ -206,10 +206,10 @@ return {
                     { "Close quickfix list", "<leader>qc" },
                 },
                 ["Search and Replace"] = {
-                    { "Replace word in current line", ":s/current-word/new-word/" },
-                    { "Replace word in entire file", ":%s/current-word/new-word/g" },
-                    { "Replace word in entire file (with confirmation)", ":%s/current-word/new-word/gc" },
-                    { "Replace word in all elements within quickfix list (with confirmation)", ":cdo %s/current-word/new-word/gc" },
+                    { "Replace in current line", ":s/old/new/" },
+                    { "Replace in entire file", ":%s/old/new/g" },
+                    { "Replace in entire file (confirm each)", ":%s/old/new/gc" },
+                    { "Replace in quickfix entries (confirm)", ":cdo s/old/new/gc" },
                 },
 				["Treesitter"] = {
 					{ "Update supported languages (Treesitter)", ":TSUpdate" },
@@ -229,18 +229,35 @@ return {
 					{ "Explain regex under cursor (Regexplainer)", "gR" },
 				},
 				["Other Packages"] = {
-					{ "Install LSPs, DAP servers, linters and formatters (Mason)", ":Mason" },
-					{ "Install missing tools from lsp-config.lua (Mason)", ":MasonToolsInstall" },
-					{ "Update tools from lsp-config.lua (Mason)", ":MasonToolsUpdate" },
+					{ "Install LSPs, debuggers, linters, formatters", ":Mason" },
+					{ "Install missing Mason tools", ":MasonToolsInstall" },
+					{ "Update Mason tools", ":MasonToolsUpdate" },
                     { "Lazy package manager", ":Lazy" },
 					{ "Remove plugins no longer in the config", ":Lazy clean" },
-					{ "Check setup health (all, or e.g. :checkhealth vim.lsp)", ":checkhealth" },
+					{ "Check health (or :checkhealth vim.lsp)", ":checkhealth" },
 					{ "Increment / decrement number or date", "<C-a> / <C-x>" },
 				},
 			},
 		})
 
-		vim.keymap.set("n", "<leader>ch", nvcheatsheet.toggle)
-		vim.keymap.set("n", "<leader>?", nvcheatsheet.toggle)
+		-- nvcheatsheet errors when the window is narrower than one column (the longest entry + ~20),
+		-- so show a message instead. Keep entries short so more columns fit
+		local function toggle()
+			if pcall(nvcheatsheet.toggle) then
+				return
+			end
+			-- The plugin switches to a new scratch buffer and marks itself as open before drawing,
+			-- so undo that: go back to the previous buffer and drop the half-drawn one
+			local scratch = vim.api.nvim_get_current_buf()
+			local previous = vim.g.nvcheatsheet_previous_buffer
+			if previous and previous ~= scratch and vim.api.nvim_buf_is_valid(previous) then
+				vim.api.nvim_set_current_buf(previous)
+				pcall(vim.api.nvim_buf_delete, scratch, { force = true })
+			end
+			vim.g.nvcheatsheet_displayed = false
+			vim.notify("Window too narrow for the cheatsheet. Widen it or use :only", vim.log.levels.WARN)
+		end
+		vim.keymap.set("n", "<leader>ch", toggle, { desc = "Toggle cheatsheet" })
+		vim.keymap.set("n", "<leader>?", toggle, { desc = "Toggle cheatsheet" })
 	end,
 }
