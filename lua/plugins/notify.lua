@@ -18,6 +18,14 @@ return {
             max_width = function()
                 return math.floor(vim.o.columns * 0.8)
             end,
+            -- Notification windows are focusable by default, so window commands can move the cursor
+            -- into them. Restoring a session does that: its "wincmd w" steps land in any notification
+            -- shown during startup. Unfocusable windows are skipped (history: <leader>fn)
+            on_open = function(win)
+                if vim.api.nvim_win_is_valid(win) then
+                    vim.api.nvim_win_set_config(win, { focusable = false })
+                end
+            end,
         })
 
         vim.notify = require('notify')
