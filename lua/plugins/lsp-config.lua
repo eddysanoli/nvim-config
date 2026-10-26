@@ -1,21 +1,75 @@
 return {
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "neovim/nvim-lspconfig" },
     {
-        "VonHeikemen/lsp-zero.nvim",
-        branch = "v3.x",
+        "neovim/nvim-lspconfig",
         dependencies = {
-            "saghen/blink.cmp",
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "saghen/blink.cmp", -- Registers its completion capabilities for all servers on its own
         },
         config = function()
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
-            local lsp_zero = require("lsp-zero")
-            lsp_zero.extend_lspconfig()
+            -- =============================
+            -- SERVER SETTINGS
+            -- =============================
 
-            lsp_zero.on_attach(function(_, bufnr)
-                lsp_zero.default_keymaps({ buffer = bufnr })
-            end)
+            -- Applies to every server. Merged with the defaults from nvim-lspconfig and blink.cmp
+            vim.lsp.config("*", {
+                capabilities = require("lsp-file-operations").default_capabilities(),
+            })
+
+            vim.lsp.config("gopls", {
+                settings = {
+                    gopls = {
+                        completeUnimported = true,
+                        usePlaceholders = true,
+                        analyses = {
+                            unusedparams = true,
+                        },
+                    },
+                },
+            })
+
+            vim.lsp.config("rust_analyzer", {
+                settings = {
+                    ["rust-analyzer"] = {
+                        diagnostics = {
+                            enable = true,
+                            disabled = { "unresolved-imports" },
+                        },
+                    },
+                },
+            })
+
+            vim.lsp.config("basedpyright", {
+                settings = {
+                    basedpyright = {
+                        disableTaggedHints = true,
+                        analysis = {
+                            useTypingExtensions = true,
+                        },
+                    },
+                },
+            })
+
+            -- Ruff reads its settings from init_options instead of settings
+            vim.lsp.config("ruff", {
+                init_options = {
+                    settings = {
+                        configurationPreference = "filesystemFirst",
+                        lint = {
+                            enable = true,
+                            select = { "E", "W" },
+                            extendSelect = { "I", "F" },
+                        },
+                        format = {
+                            enable = true,
+                        },
+                    },
+                },
+            })
+
+            -- =============================
+            -- INSTALL AND ENABLE SERVERS
+            -- =============================
 
             require("mason").setup({
                 ui = {
@@ -25,9 +79,11 @@ return {
                     -- Golang
                     "gofumpt",
                     "goimports-reviser",
-                    "golines"
+                    "golines",
                 },
             })
+
+            -- Every server installed through Mason gets enabled automatically (vim.lsp.enable)
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "bashls",
@@ -56,135 +112,47 @@ return {
                     "ruff",
                     "basedpyright",
                 },
-                handlers = {
-                    function(server_name)
-                        local lspconfig = require("lspconfig")
-                        local server = lspconfig[server_name]
-                        local util = lspconfig.util
-
-                        -- Set global defaults for all servers
-                        -- Some LSP servers also expect to be informed about the extended client capabilities provided
-                        -- by nvim-lsp-file-operations. Here we configure the default client capabilities that will be
-                        -- sent to all servers
-                        -- lspconfig.util.default_config = vim.tbl_extend(
-                        --   'force',
-                        --   lspconfig.util.default_config,
-                        --   {
-                        --     capabilities = vim.tbl_deep_extend(
-                        --       "force",
-                        --       vim.lsp.protocol.make_client_capabilities(),
-                        --       -- returns configured operations if lsp-file-operations.setup() was already called
-                        --       -- or default operations if not
-                        --       require'lsp-file-operations'.default_capabilities(),
-                        --     )
-                        -- }
-                        -- )
-                        if server_name == "solargraph" then
-                            server.setup({
-                                capabilities = capabilities,
-                                settings = {
-                                    Solargraph = {
-                                        root_dir = util.root_pattern("Gemfile", ".git")(fname)
-                                            or util.path.dirname(vim.api.nvim_buf_get_name(0)),
-                                    },
-                                },
-                            })
-                            return
-                        elseif server_name == "gopls" then
-                            server.setup({
-                                on_attach = on_attach,
-                                capabilities = capabilities,
-                                cmd = {"gopls"},
-                                filetypes = {"go", "gomod", "gowork", "gotmpl"},
-                                root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-                                settings = {
-                                    gopls = {
-                                        completeUnimported = true,
-                                        usePlaceholders = true,
-                                        analyses = {
-                                            unusedparams = true,
-                                        }
-                                    }
-                                }
-                            })
-                            return
-                        elseif server_name == "rust_analyzer" then
-                            server.setup({
-                                capabilities = capabilities,
-                                settings = {
-                                    ["rust-analyzer"] = {
-                                        diagnostics = {
-                                            enable = true,
-                                            disabled = { "unresolved-imports" },
-                                        },
-                                    },
-                                },
-                            })
-                            if vim.lsp.inlay_hint then
-                                vim.lsp.inlay_hint.enable(true, { 0 })
-                            end
-                            return
-                        elseif server_name == "basedpyright" then
-                            server.setup({
-                                capabilities = capabilities,
-                                settings = {
-                                    basedpyright = {
-                                        disableTaggedHints = true,
-                                        disabled = true,
-                                        analysis = {
-                                            useTypingExtensions = true,
-                                        }
-                                    },
-                                },
-                            })
-                            if vim.lsp.inlay_hint then
-                                vim.lsp.inlay_hint.enable(false, { 0 })
-                            end
-                            return
-                        elseif server_name == "ruff" then
-                            server.setup({
-                                capabilities = capabilities,
-                                settings = {
-                                    enable = true,
-                                    lint = {
-                                        enable = true,
-                                    },
-                                    format = {
-                                        enable = true,
-                                    },
-                                    extendSelect = { "I", "F" }, -- Enable all rules
-                                    select = { "E", "W" }, -- Enable specific rules
-                                    configurationPreference = "filesystemFirst",
-
-                                    -- ruff = {
-                                    --     enable = true,
-                                    --     diagnostics = {
-                                    --         enable = true,
-                                    --     },
-                                    --     extendSelect = { "I", "F" }, -- Enable all rules
-                                    --     select = { "E", "W" }, -- Enable specific rules
-                                    --     configurationPreference = "filesystemFirst",
-                                    -- },
-                                },
-                            })
-                            return
-                        else
-                            server.setup({
-                                capabilities = capabilities,
-                            })
-                        end
-                    end,
-                },
             })
 
-            -- Add mapping for code actions
-            -- For more mappings see this: https://lsp-zero.netlify.app/v3.x/reference/lua-api.html#lsp-actions
-            vim.keymap.set("n", "<leader>ca", function()
-                vim.lsp.buf.code_action()
-            end, { desc = "Show code actions" })
+            -- =============================
+            -- KEYMAPS
+            -- =============================
 
-            local bufnr = vim.fn.bufnr("%")
-            vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", { buffer = bufnr, desc = "Show references" })
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
+                callback = function(ev)
+                    local function map(mode, lhs, rhs, desc)
+                        vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc })
+                    end
+
+                    -- Same mappings lsp-zero used to provide. K, [d and ]d are Neovim defaults
+                    map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+                    map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+                    map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
+                    map("n", "go", vim.lsp.buf.type_definition, "Go to type definition")
+                    map("n", "gs", vim.lsp.buf.signature_help, "Show function signature")
+                    map("n", "gl", vim.diagnostic.open_float, "Show diagnostic")
+                    map("n", "<F2>", vim.lsp.buf.rename, "Rename symbol")
+                    map({ "n", "x" }, "<F3>", function()
+                        vim.lsp.buf.format({ async = true })
+                    end, "Format file")
+                    map({ "n", "x" }, "<F4>", vim.lsp.buf.code_action, "Execute code action")
+                    map("n", "<leader>ca", vim.lsp.buf.code_action, "Show code actions")
+
+                    -- nowait: don't pause for Neovim's default grr/gra/grn/gri mappings
+                    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", {
+                        buffer = ev.buf,
+                        nowait = true,
+                        desc = "Show references",
+                    })
+
+                    -- Inlay hints only for Rust
+                    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+                    if client and client.name == "rust_analyzer" then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+                    end
+                end,
+            })
         end,
     },
 }

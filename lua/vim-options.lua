@@ -1,11 +1,15 @@
+-- No plugins use the Python provider. Probing for it fails on the pyenv-win shims and
+-- aborts the FileType autocmds for Python buffers, which stops the LSP servers from attaching
+vim.g.loaded_python3_provider = 0
+
 vim.o.readonly = false
 vim.opt.smartindent = true
 
 -- Enable 24bit color support. Needed for bufferline and notify
 vim.opt.termguicolors = true
 
--- Faster updates
-vim.opt.updatetime = 50
+-- Delay before CursorHold fires (used by checktime, lightbulb, spelunker, gitsigns blame)
+vim.opt.updatetime = 250
 
 -- Leader key
 vim.g.mapleader = " "
@@ -58,7 +62,7 @@ vim.opt.spelllang = { "en_us" }
 
 -- Squiggly underlines for errors instead of displaying errors as virtual text
 -- vim.cmd.highlight("highlight-name gui=undercurl")
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config({
     underline = true,
     virtual_text = false,
     signs = true,
