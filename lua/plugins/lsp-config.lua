@@ -77,12 +77,6 @@ return {
                 ui = {
                     border = "rounded",
                 },
-                ensure_installed = {
-                    -- Golang
-                    "gofumpt",
-                    "goimports-reviser",
-                    "golines",
-                },
             })
 
             -- Every server installed through Mason gets enabled automatically (vim.lsp.enable)
@@ -136,7 +130,7 @@ return {
                     map("n", "gl", vim.diagnostic.open_float, "Show diagnostic")
                     map("n", "<F2>", vim.lsp.buf.rename, "Rename symbol")
                     map({ "n", "x" }, "<F3>", function()
-                        vim.lsp.buf.format({ async = true })
+                        require("conform").format({ async = true })
                     end, "Format file")
                     map({ "n", "x" }, "<F4>", vim.lsp.buf.code_action, "Execute code action")
                     map("n", "<leader>ca", vim.lsp.buf.code_action, "Show code actions")

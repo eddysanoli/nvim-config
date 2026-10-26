@@ -22,11 +22,11 @@ return {
 			})
 
 			-- Run the command: :Telescope toggleterm_manager
-			vim.api.nvim_set_keymap(
+			vim.keymap.set(
 				"n",
 				"<leader>tm",
 				"<cmd>Telescope toggleterm_manager<CR>",
-				{ noremap = true, silent = true }
+				{ silent = true, desc = "Open toggle term manager" }
 			)
 		end,
 	},
@@ -52,7 +52,7 @@ return {
 				float_opts = {
 					border = "curved",
 					width = math.ceil(vim.o.columns * 0.8),
-					height = math.ceil(vim.o.columns * 0.2),
+					height = math.ceil(vim.o.lines * 0.2),
 					highlights = {
 						border = "Normal",
 						background = "Normal",
@@ -60,18 +60,7 @@ return {
 				},
 			})
 
-			function _G.set_terminal_keymaps()
-				local opts = { buffer = 0 }
-				vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
-				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-				vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-				vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-				vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
-			end
-
-			vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+			-- Terminal-mode keymaps are in keymaps.lua, so they also apply before toggleterm loads
 
             -- ===================== LAZYGIT =====================
 
@@ -87,38 +76,20 @@ return {
 				-- function to run on opening the terminal
 				on_open = function(term)
 					vim.cmd("startinsert!")
-					vim.api.nvim_buf_set_keymap(
-						term.bufnr,
-						"n",
-						"q",
-						"<cmd>close<CR>",
-						{ noremap = true, silent = true }
-					)
-                    vim.api.nvim_buf_set_keymap(
-                        term.bufnr,
-                        "t",
-                        "<Esc>",
-                        "<Esc>",
-                        { noremap = true, silent = true }
-                    )
+					vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = term.bufnr, silent = true })
+					-- Let lazygit handle Esc itself
+					vim.keymap.set("t", "<Esc>", "<Esc>", { buffer = term.bufnr, silent = true })
 				end,
 
 				-- function to run on closing the terminal
-				on_close = function(term)
+				on_close = function()
 					vim.cmd("startinsert!")
 				end,
 			})
 
-			function _LAZYGIT_TOGGLE()
+			vim.keymap.set("n", "<leader>lg", function()
 				lazygit:toggle()
-			end
-
-			vim.api.nvim_set_keymap(
-				"n",
-				"<leader>lg",
-				"<cmd>lua _LAZYGIT_TOGGLE()<CR>",
-				{ noremap = true, silent = true, desc = "Open LazyGit in a floating terminal" }
-			)
+			end, { silent = true, desc = "Open LazyGit in a floating terminal" })
 
             -- =================== POWERSHELL ================
 
@@ -130,16 +101,9 @@ return {
 					border = "double",
 				},
 			})
-			function _POWERSHELL_TOGGLE()
+			vim.keymap.set("n", "<leader>pwsh", function()
 				powershell:toggle()
-			end
-
-			vim.api.nvim_set_keymap(
-				"n",
-				"<leader>pwsh",
-				"<cmd>lua _POWERSHELL_TOGGLE()<CR>",
-				{ noremap = true, silent = true, desc = "Open Powershell in a floating terminal" }
-			)
+			end, { silent = true, desc = "Open Powershell in a floating terminal" })
 		end,
 	},
 }

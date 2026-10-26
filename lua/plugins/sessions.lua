@@ -10,7 +10,9 @@ return {
             auto_restore = true,
             auto_create = true,
             show_auto_restore_notif = true,
-            auto_restore_last_session = true,
+            -- Only when started without arguments. auto-session doesn't check this itself, so
+            -- `nvim some_file` would otherwise open the last session instead of that file
+            auto_restore_last_session = vim.fn.argc(-1) == 0,
 
             cwd_change_handling = true,
 

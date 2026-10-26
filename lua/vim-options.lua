@@ -2,7 +2,8 @@
 -- aborts the FileType autocmds for Python buffers, which stops the LSP servers from attaching
 vim.g.loaded_python3_provider = 0
 
-vim.o.readonly = false
+local augroup = vim.api.nvim_create_augroup("UserOptions", { clear = true })
+
 vim.opt.smartindent = true
 
 -- Enable 24bit color support. Needed for bufferline and notify
@@ -20,6 +21,7 @@ vim.opt.mouse = "a"
 -- Reload buffer if file changes on disk
 vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    group = augroup,
     command = "if mode() != 'c' | checktime | endif",
 })
 
@@ -41,23 +43,28 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Disable line wrapping
-vim.wo.wrap = false
+vim.opt.wrap = false
+
+-- Only highlight the first 300 columns of a line. Very long lines (minified files) are slow to highlight
+vim.opt.synmaxcol = 300
 
 -- Enable line numbers with relative numbering
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
--- Make the clipboard the recipient of all yanked data
-vim.o.clipboard = "unnamedplus"
+-- Make the clipboard the recipient of all yanked data. Set after startup because detecting
+-- the clipboard provider on Windows slows down startup
+vim.schedule(function()
+    vim.opt.clipboard = "unnamedplus"
+end)
 
--- When I scroll down I want to see at least 8 lines at the bottom
+-- When I scroll down I want to see at least 20 lines at the bottom
 vim.opt.scrolloff = 20
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 -- Spell checking
 vim.opt.spell = false
-vim.opt_local.spell = false
 vim.opt.spelllang = { "en_us" }
 
 -- Squiggly underlines for errors instead of displaying errors as virtual text
@@ -77,6 +84,7 @@ vim.keymap.set("n", "<leader>qc", "<cmd>cclose<CR>", { desc = "Close quickfix li
 
 -- Make lines wrap (visually, not including newlines) in Markdown files
 vim.api.nvim_create_autocmd("FileType", {
+    group = augroup,
     pattern = "markdown",
     callback = function()
         vim.opt_local.wrap = true
@@ -90,9 +98,10 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 
 -- Disable spell checking for terminal buffers
-vim.cmd([[
-    autocmd TermOpen * setlocal nospell
-]])
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = augroup,
+    command = "setlocal nospell",
+})
 
 -- Folds
 vim.opt.foldcolumn = "1"

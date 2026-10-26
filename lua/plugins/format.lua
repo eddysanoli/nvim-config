@@ -10,6 +10,50 @@ return {
         end,
     },
     {
+        "stevearc/conform.nvim",
+        cmd = "ConformInfo",
+        keys = {
+            {
+                "<leader>fm",
+                function()
+                    require("conform").format({ async = true })
+                end,
+                mode = { "n", "x" },
+                desc = "Format the current file",
+            },
+        },
+        opts = {
+            formatters_by_ft = {
+                lua = { "stylua" },
+                -- Ruff sorts imports with the same rules as isort. The isort on PATH is a pyenv-win shim,
+                -- which Neovim can't launch on Windows
+                python = { "ruff_organize_imports", "ruff_format" },
+                go = { "goimports-reviser", "gofumpt", "golines" },
+                terraform = { "terraform_fmt" },
+                ["terraform-vars"] = { "terraform_fmt" },
+                javascript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescript = { "prettier" },
+                typescriptreact = { "prettier" },
+                vue = { "prettier" },
+                css = { "prettier" },
+                scss = { "prettier" },
+                less = { "prettier" },
+                html = { "prettier" },
+                json = { "prettier" },
+                jsonc = { "prettier" },
+                yaml = { "prettier" },
+                markdown = { "prettier" },
+                graphql = { "prettier" },
+            },
+            -- Filetypes without a formatter above use their language server, if it can format
+            default_format_opts = {
+                lsp_format = "fallback",
+            },
+        },
+    },
+    {
+        -- Only diagnostics and code actions now. Formatting is handled by conform.nvim above
         "nvimtools/none-ls.nvim",
         dependencies = {
             "nvimtools/none-ls-extras.nvim",
@@ -23,27 +67,12 @@ return {
                     return vim.bo[bufnr].filetype ~= "bigfile"
                 end,
                 sources = {
-                    null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.formatting.prettier,
-                    null_ls.builtins.code_actions.refactoring,
                     null_ls.builtins.code_actions.gitsigns,
-                    null_ls.builtins.formatting.terraform_fmt,
-                    null_ls.builtins.formatting.djhtml,
                     null_ls.builtins.diagnostics.mypy.with({
                         only_local = true,
                     }),
-                    null_ls.builtins.formatting.isort.with({
-                        only_local = true,
-                    }),
-
-                    -- Go: These packages need to be installed using "go install" command
-                    null_ls.builtins.formatting.gofumpt,
-                    null_ls.builtins.formatting.goimports_reviser,
-                    null_ls.builtins.formatting.golines,
                 },
             })
-
-            vim.keymap.set("n", "<leader>fm", vim.lsp.buf.format, { desc = "Format the current file" })
         end,
     },
 }

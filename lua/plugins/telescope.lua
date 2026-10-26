@@ -3,6 +3,7 @@
 -- =================================================
 
 vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("UserTelescopeResults", { clear = true }),
 	pattern = "TelescopeResults",
 	callback = function(ctx)
 		vim.api.nvim_buf_call(ctx.buf, function()

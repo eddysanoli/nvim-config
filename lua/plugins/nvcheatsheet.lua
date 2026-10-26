@@ -33,6 +33,14 @@ return {
 				["Copilot"] = {
 					{ "Open Copilot chat", "<leader>cco" },
 					{ "Close Copilot chat", "<leader>ccx" },
+					{ "Quick chat", "<leader>ccq" },
+					{ "Pick a prompt", "<leader>ccp" },
+					{ "View/select models", "<leader>ccm" },
+				},
+				["Indent"] = {
+					{ "Indent / de-indent selection (visual mode)", "<Tab> / <S-Tab>" },
+					{ "Indent / de-indent line", ">> / <<" },
+					{ "Jump forward in jumplist", "<C-i>" },
 				},
 				["Folds"] = {
 					{ "Toggle fold", "za" },
@@ -49,16 +57,15 @@ return {
 					{ "Remove word under cursor from bad word list", "<leader>zuw" },
 				},
 				["Bufferline"] = {
-					{ "Move to next buffer", "<leader>gt" },
-					{ "Move to previous buffer", "<leader>gT" },
+					{ "Move to next tab", "gt" },
+					{ "Move to previous tab", "gT" },
 					{ "Close buffer", "<leader>bc" },
 				},
 				["Telescope"] = {
 					{ "Scroll preview up", "<C-u>" },
 					{ "Scroll preview down", "<C-d>" },
 					{ "Find file", "<C-p>" },
-					{ "Search text in files (Live grep)", "<leader>fg" },
-					{ "Find text in files", "<leader>ft" },
+					{ "Search text in files (Live grep)", "<leader>ft" },
 					{ "Move through buffers", "<leader>fb" },
                     { "Find symbols (variables, functions, etc)", "<leader>fs" },
                     { "Go through previously opened files", "<leader>fo" },
@@ -85,13 +92,13 @@ return {
 				},
 				["Leap"] = {
 					{ "Search for word in front of cursor", "s" },
-					{ "Search for word behind cursor", "sb" },
+					{ "Search for word behind cursor", "S" },
 					{ "Search for word in window", "gs" },
 				},
 				["Debugging"] = {
 					{ "Toggle breakpoint", "<leader>dt" },
 					{ "Continue debugging session", "<leader>dc" },
-                    { "Open debugging sidebar", "<leader>dus" },
+                    { "Open debugging sidebar", "<leader>ds" },
                     { "(Go) Debug Golang Test", "<leader>dgt" },
                     { "(Go) Debug last Golang Test", "<leader>dgl" },
 				},
@@ -112,7 +119,7 @@ return {
 					{ "Go to fourth tag", "<leader>g4" },
 					{ "Go to previous tag", "<leader>gp" },
 					{ "Go to next tag", "<leader>gn" },
-					{ "Open scopes window", "<leader>gs" },
+					{ "Open scopes window", "<leader>gts" },
                     { "Remove tag", "List tags. Delete a line" }
 				},
 				["LSP"] = {
@@ -128,8 +135,9 @@ return {
                     { "Create file", "a" },
                     { "Delete file", "d" },
 				},
-				["None-LS"] = {
-					{ "Format file", "<leader>fm" },
+				["Formatting"] = {
+					{ "Format file or selection (conform)", "<leader>fm" },
+					{ "Show formatters for current file", ":ConformInfo" },
 				},
 				["Sessions"] = {
 					{ "Session list menu", "<leader>ls" },
@@ -141,7 +149,6 @@ return {
 					{ "Open X terminal", "X<C-\\>" },
 				},
 				["Trouble"] = {
-                    { "Preview diagnostics for current line", "gR" },
 					{ "Toggle trouble diagnostics", "<leader>td" },
 					{ "Toggle trouble diagnostics filter", "<leader>tb" },
 					{ "Toggle trouble symbols", "<leader>ts" },
@@ -171,6 +178,9 @@ return {
 					{ "Increment selection by node", '<leader>si' },
 					{ "Increment selection by scope", '<leader>sc' },
 					{ "Decrement selection by node", '<leader>sd' },
+				},
+				["Regex"] = {
+					{ "Explain regex under cursor (Regexplainer)", "gR" },
 				},
 				["Other Packages"] = {
 					{ "Install LSPs, DAP servers, linters and formatters (Mason)", ":Mason" },
