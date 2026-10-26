@@ -27,7 +27,27 @@ return {
                     end
                 end,
             },
-            post_restore_cmds = { "Neotree filesystem show" },
+            post_restore_cmds = {
+                -- Sessions store each window's options (localoptions, which auto-session needs for
+                -- filetypes and highlighting). Ones saved before native folding restore manual folds,
+                -- so switch those windows back to the global fold settings. Big files keep manual folds
+                function()
+                    for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        local buf = vim.api.nvim_win_get_buf(win)
+                        if
+                            vim.wo[win].foldmethod == "manual"
+                            and vim.bo[buf].buftype == ""
+                            and vim.bo[buf].filetype ~= "bigfile"
+                        then
+                            vim.wo[win][0].foldmethod = vim.go.foldmethod
+                            if vim.wo[win].foldexpr == "0" then
+                                vim.wo[win][0].foldexpr = vim.go.foldexpr
+                            end
+                        end
+                    end
+                end,
+                "Neotree filesystem show",
+            },
 
             suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
             session_lens = {
