@@ -51,6 +51,20 @@ return {
                 },
             })
 
+            -- sqruff lints and formats SQL (it's also what <leader>fm uses, through the language server).
+            -- The server only reads .sqruff from the folder it runs in (it ignores --config and the
+            -- workspace root). So it runs in the project folder when that has its own .sqruff, and
+            -- otherwise in tool-configs/sqruff, whose .sqruff sets the Postgres dialect
+            vim.lsp.config("sqruff", {
+                root_dir = function(bufnr, on_dir)
+                    local project = vim.fs.root(bufnr, { ".sqruff", ".sqlfluff" })
+                    on_dir(project or (vim.fn.stdpath("config") .. "/tool-configs/sqruff"))
+                end,
+                cmd = function(dispatchers, config)
+                    return vim.lsp.rpc.start({ "sqruff", "lsp" }, dispatchers, { cwd = config.root_dir })
+                end,
+            })
+
             vim.lsp.config("basedpyright", {
                 settings = {
                     basedpyright = {

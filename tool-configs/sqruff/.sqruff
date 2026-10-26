@@ -1,0 +1,8 @@
+# Default sqruff config, used for SQL files in projects that don't have their own .sqruff
+# (see the sqruff entry in lua/plugins/lsp-config.lua, which points the server at this folder).
+# sqruff parses as ANSI SQL unless told otherwise, which breaks on Postgres syntax
+# ($1 parameters, ON CONFLICT, ::casts, $$ bodies)
+[sqruff]
+dialect = postgres
+# Default is 80, which splits ordinary statements in awkward places
+max_line_length = 120
