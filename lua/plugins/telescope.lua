@@ -52,6 +52,23 @@ return {
 				desc = "Search text in files (Live grep)",
 			},
 			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find files" },
+			{
+				"<leader>fa",
+				function()
+					-- Also lists hidden and gitignored files (.env), minus folders too big to be useful
+					require("telescope.builtin").find_files({
+						prompt_title = "Find All Files",
+						find_command = {
+							"fd", "--type", "f", "--hidden", "--no-ignore", "--color", "never",
+							"--exclude", ".git",
+							"--exclude", ".venv",
+							"--exclude", "node_modules",
+							"--exclude", "__pycache__",
+						},
+					})
+				end,
+				desc = "Find all files (hidden and ignored too)",
+			},
 			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Find buffers" },
 			{ "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Find notifications" },
 			{ "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Find symbols (variables, functions, etc)" },

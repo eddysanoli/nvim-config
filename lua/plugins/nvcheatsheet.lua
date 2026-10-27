@@ -65,6 +65,7 @@ return {
 					{ "Scroll preview up", "<C-u>" },
 					{ "Scroll preview down", "<C-d>" },
 					{ "Find file", "<C-p>" },
+					{ "Find all files (hidden and ignored too)", "<leader>fa" },
 					{ "Search text in files (Live grep)", "<leader>ft" },
 					{ "Move through buffers", "<leader>fb" },
                     { "Find symbols (variables, functions, etc)", "<leader>fs" },
