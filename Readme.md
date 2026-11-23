@@ -14,23 +14,23 @@ The configuration runs on top of Lazy and has LSP Zero for language server suppo
 
 ## AI Setup
 
-All AI plugins live in `lua/plugins/ai.lua`. To get them working:
+Everything lives in `lua/plugins/ai.lua`: Copilot suggestions (copilot.lua) and the CodeCompanion chat. Press `<leader>ch` for the keys.
 
-1. Make sure you have a GitHub account with Copilot enabled. The free tier works
-2. Install [Node.js](https://nodejs.org/) 22 or newer and make sure `node` is on your PATH (check with `node --version`). Copilot's language server runs on it. On Windows you can run `choco install nodejs-lts`
-3. Open Neovim and run `:Copilot auth`. It shows a one-time code and opens GitHub in your browser. Paste the code there and approve the login
-4. Check that it worked with `:Copilot status`. Then go into insert mode in any file: suggestions should appear as grey text
-5. Open the CodeCompanion chat with `<leader>aa` and send a message. It reuses the login from step 3. If anything fails, run `:checkhealth codecompanion`
+1. Install [Node.js](https://nodejs.org/) 22 or newer (`node --version` to check)
+2. In Neovim run `:Copilot auth` and approve the code in your browser (needs a GitHub account with Copilot, the free tier works)
+3. Check with `:Copilot status`. Open the chat with `<leader>aa`. If something fails, run `:checkhealth codecompanion`
 
-### Using Claude in CodeCompanion (optional)
+<details>
+<summary>Use Claude (Pro/Max subscription) in the chat</summary>
 
-CodeCompanion can also use Claude (Opus 5.5) through the Anthropic API. This needs an API key, which is billed per use and separate from a Claude Pro/Max subscription:
+1. Install the [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code/quickstart) and `npm install -g @zed-industries/claude-agent-acp`
+2. Run `claude setup-token` and approve in the browser to get a token
+3. Save it as a user environment variable (PowerShell): `[Environment]::SetEnvironmentVariable("CLAUDE_CODE_OAUTH_TOKEN", "<token>", "User")`
+4. Restart your terminal and Neovim
 
-1. Create an API key in the [Anthropic Console](https://console.anthropic.com/)
-2. Save it as a user environment variable called `ANTHROPIC_API_KEY`. On Windows, run this in PowerShell: `[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "<your key>", "User")`. Don't put the key in the config, since the config is in git
-3. Restart your terminal and Neovim so they pick up the variable
+With the token set, chats and `<leader>ag` (agent chat) use Claude Code. Without it they use Copilot. An `ANTHROPIC_API_KEY` variable also works as a fallback. In a chat, `ga` switches adapter and `gty` changes how tool calls are approved.
 
-Once the key is set, new chats use Claude by default. Without it, they use Copilot. Inline edits (`<leader>ai`) always use Copilot. You can switch between them in any chat with `ga`.
+</details>
 
 ## Keybindings
 
