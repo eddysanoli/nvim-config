@@ -4,6 +4,22 @@ return {
 	{ "tpope/vim-speeddating", event = "VeryLazy" }, -- Increment dates, times, and more using CTRL-A and CTRL-X
 	{ "cohama/lexima.vim", event = "InsertEnter" }, -- Auto close brackets, quotes, etc.
 	{
+		-- Extra text objects: brackets (b), quotes (q), arguments (a), function calls (f), tags (t)...
+		-- Also works on the last textobject before the cursor (al / il)
+		-- af/if/ac/ic/as stay with nvim-treesitter-textobjects, since explicit mappings win over mini.ai
+		"nvim-mini/mini.ai",
+		event = "VeryLazy",
+		opts = {
+			-- Search this many lines around the cursor for a textobject (default 50)
+			n_lines = 500,
+			mappings = {
+				-- an / in are Neovim's built-in treesitter incremental selection (see keymaps.lua)
+				around_next = "",
+				inside_next = "",
+			},
+		},
+	},
+	{
 		"ggandor/leap.nvim", -- Jump to a new location using two characters. Analog to the "f" motion
 		dependencies = {
 			"tpope/vim-repeat",

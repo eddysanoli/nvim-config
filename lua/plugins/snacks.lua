@@ -2,11 +2,6 @@ return {
     "folke/snacks.nvim",
     lazy = false,
     priority = 1000,
-    init = function()
-        -- Keep Copilot off big files. copilot.vim attaches on FileType before the bigfile setup below
-        -- runs, so this has to go by filetype instead of a buffer variable
-        vim.g.copilot_filetypes = vim.tbl_extend("force", vim.g.copilot_filetypes or {}, { bigfile = false })
-    end,
     opts = {
         -- Files over 1.5MB, or with very long lines (minified files), get the filetype "bigfile".
         -- That alone stops treesitter, LSP and filetype plugins from attaching

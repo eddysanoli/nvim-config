@@ -15,7 +15,6 @@ return {
 					style = "bordered",
 				},
                 leap= true,
-                copilot_vim = true,
 			},
 
 			custom_highlights = function(colors)

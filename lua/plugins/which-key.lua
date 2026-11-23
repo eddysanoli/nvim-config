@@ -12,9 +12,9 @@ return {
 		-- The keys themselves are defined (with descriptions) in each plugin's file
 		spec = {
 			mode = { "n", "x" },
+			{ "<leader>a", group = "AI (CodeCompanion)" },
 			{ "<leader>b", group = "Buffer" },
 			{ "<leader>c", group = "Code / Comments / Cheatsheet" },
-			{ "<leader>cc", group = "Copilot Chat" },
 			{ "<leader>d", group = "Debug" },
 			{ "<leader>dg", group = "Debug Go" },
 			{ "<leader>f", group = "Find / Format" },
