@@ -199,8 +199,8 @@ return {
 				["Toggleterm"] = {
 					{ "Open toggle term manager", "<leader>tm" },
 					{ "Open powershell in floating window", "<leader>pwsh" },
-					{ "Open new terminal", "<C-\\>" },
-					{ "Open X terminal", "X<C-\\>" },
+					{ "Open new terminal", "<C-ñ>" },
+					{ "Open X terminal", "X<C-ñ>" },
 				},
 				["Trouble"] = {
 					{ "Toggle trouble diagnostics", "<leader>td" },

@@ -35,13 +35,13 @@ return {
 		version = "2.11.0",
 		cmd = { "ToggleTerm", "TermExec", "ToggleTermToggleAll" },
 		keys = {
-			{ "<C-\\>", desc = "Open new terminal" },
+			{ "<C-ñ>", desc = "Open new terminal" },
 			{ "<leader>lg", desc = "Open LazyGit in a floating terminal" },
 			{ "<leader>pwsh", desc = "Open Powershell in a floating terminal" },
 		},
 		config = function()
 			require("toggleterm").setup({
-				open_mapping = "<C-\\>",
+				open_mapping = "<C-ñ>",
 				start_in_insert = true,
 				shell = '"C:\\Program Files\\Git\\bin\\bash.exe"',
 				direction = "horizontal",

@@ -81,11 +81,9 @@ return {
             suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
             session_lens = {
                 picker = "telescope",
-                bufftypes_to_ignore = {},
                 -- Telescope is loaded when the session list is opened instead of at startup
                 load_on_setup = false,
-                picker_opts = { border = true },
-                previewer = false,
+                picker_opts = { border = true, previewer = false },
                 mappings = {
                     delete_session = { "n", "d" },
                 },
@@ -93,7 +91,7 @@ return {
         })
 
         vim.keymap.set("n", "<leader>ls", function()
-            require("auto-session.session-lens").search_session()
+            require("auto-session").search()
         end, {
             noremap = true,
             silent = true,
