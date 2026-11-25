@@ -8,6 +8,15 @@ return {
 		bufferline.setup({
 			options = {
                 mode = "tabs",
+				-- Show a tab's custom name (set with <leader>tr) instead of its active buffer
+				name_formatter = function(item)
+					if item.tabnr and vim.api.nvim_tabpage_is_valid(item.tabnr) then
+						local ok, name = pcall(vim.api.nvim_tabpage_get_var, item.tabnr, "name")
+						if ok and name ~= "" then
+							return name
+						end
+					end
+				end,
 				offsets = {
 					{
 						filetype = "neo-tree",
@@ -18,6 +27,21 @@ return {
 				},
 			},
 		})
+
+		-- Rename the current tab. An empty name goes back to showing the active buffer
+		vim.keymap.set("n", "<leader>tr", function()
+			vim.ui.input({ prompt = "Tab name: ", default = vim.t.name or "" }, function(name)
+				if name == nil then
+					return
+				end
+				if name == "" then
+					vim.t.name = nil
+				else
+					vim.t.name = name
+				end
+				vim.cmd("redrawtabline")
+			end)
+		end, { silent = true, desc = "Rename current tab" })
 
 		-- Close current buffer
 		-- Focus on a new buffer that is not the tree by toggling the tree, deleting and then reopening

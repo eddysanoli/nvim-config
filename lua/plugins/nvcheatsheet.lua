@@ -67,6 +67,7 @@ return {
 					{ "Move to next tab", "gt" },
 					{ "Move to previous tab", "gT" },
 					{ "Close buffer", "<leader>bc" },
+					{ "Rename current tab", "<leader>tr" },
 				},
 				["Telescope"] = {
 					{ "Scroll preview up", "<C-u>" },
