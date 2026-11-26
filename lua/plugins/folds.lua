@@ -7,6 +7,7 @@ return {
 		local builtin = require("statuscol.builtin")
 		require("statuscol").setup({
 			relculright = true,
+			bt_ignore = { "terminal" }, -- no Lua statuscolumn in terminals (slow with streaming output)
 			segments = {
 				{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
 				{ text = { "%s" }, click = "v:lua.ScSa" },

@@ -135,10 +135,23 @@ vim.api.nvim_create_autocmd("FileType", {
 -- Setup for sessions.lua session support
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
 
--- Disable spell checking for terminal buffers
+-- Terminal buffers: turn off everything that does work for each new line of output. Without
+-- this they get the treesitter foldexpr, the fold column and statuscol's Lua statuscolumn,
+-- all re-evaluated as logs stream in (e.g. docker compose up), which slows the whole editor
 vim.api.nvim_create_autocmd("TermOpen", {
     group = augroup,
-    command = "setlocal nospell",
+    callback = function()
+        vim.opt_local.spell = false
+        vim.opt_local.foldmethod = "manual"
+        vim.opt_local.foldenable = false
+        vim.opt_local.foldcolumn = "0"
+        vim.opt_local.statuscolumn = ""
+        vim.opt_local.signcolumn = "no"
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+        vim.opt_local.cursorline = false
+        vim.opt_local.scrollback = 5000 -- default 10000; less to keep in memory and reflow
+    end,
 })
 
 -- Folds. Native folding from treesitter; lsp-config.lua switches a window to the language server's
