@@ -44,48 +44,23 @@ return {
 		end,
 	},
 	{
-		"LudoPinelli/comment-box.nvim",
-		cmd = { "CBllbox", "CBlcline" },
+		-- Comment banners. Local plugin, see local-plugins/banner.nvim/lua/banner/init.lua
+		dir = vim.fn.stdpath("config") .. "/local-plugins/banner.nvim",
+		name = "banner.nvim",
+		main = "banner",
 		keys = {
-			{ "<leader>cb", "<Cmd>CBllbox<CR>", mode = { "n", "v" }, desc = "Comment box" },
-			{ "<leader>cl", "<Cmd>CBlcline<CR>", mode = { "n", "v" }, desc = "Comment line" },
+			{ "<leader>cb", function() return require("banner").operator("block") end, expr = true, desc = "Comment banner (block)" },
+			{ "<leader>cl", function() return require("banner").operator("line") end, expr = true, desc = "Comment banner (single line)" },
+			{ "<leader>cb", function() require("banner").visual("block") end, mode = "x", desc = "Comment banner (block)" },
+			{ "<leader>cl", function() require("banner").visual("line") end, mode = "x", desc = "Comment banner (single line)" },
 		},
-		config = function()
-			local cb = require("comment-box")
-			cb.setup({
-				comment_style = "line",
-				doc_width = 80, -- width of the document
-				box_width = 46, -- width of the boxes
-				borders = { -- symbols used to draw a box
-					top = "=",
-					bottom = "=",
-					top_left = "=",
-					top_right = "=",
-					bottom_left = "=",
-					bottom_right = "=",
-					left = "",
-					right = "",
-					-- left = "│",
-					-- right = "│",
-					-- top_left = "╭",
-					-- top_right = "╮",
-					-- bottom_left = "╰",
-					-- bottom_right = "╯",
-				},
-				line_width = 46, -- width of the lines
-				lines = { -- symbols used to draw a line
-					line = "=",
-					line_start = "=",
-					line_end = "=",
-					title_left = "=",
-					title_right = "=",
-				},
-				outer_blank_lines_above = false, -- insert a blank line above the box
-				outer_blank_lines_below = false, -- insert a blank line below the box
-				inner_blank_lines = false, -- insert a blank line above and below the text
-				line_blank_line_above = false, -- insert a blank line above the line
-				line_blank_line_below = false, -- insert a blank line below the line
-			})
-		end,
+		opts = {
+			fill = "=", -- character the rules are drawn with (one display column wide)
+			width = 50, -- total width, comment markers included, counted from the indentation
+			uppercase = true, -- uppercase the text
+			min_fill = 3, -- shortest fill on each side of the text in a single-line banner
+			ellipsis = "…", -- ends text cut short to fit the width
+			fallback_marker = "#", -- side marker when the file type has no comment string
+		},
 	},
 }
